@@ -1,0 +1,97 @@
+{
+  "id": null,
+  "bannedfromqmquntil": {
+    "label": "Banned from q.m.q. until:",
+    "type": "datetime"
+  },
+  "lastchangedon": {
+    "label": "Settings last changed on:",
+    "type": "datetime"
+  },
+  "firstname": "First name:",
+  "lastname": "Last name:",
+  "middlename": "Middle name:",
+  "phonenumber": "Phone number:",
+  "un": "Username:",
+  "datejoined": {
+    "label": "Date joined:",
+    "type": "datetime"
+  },
+  "bronzemedalsawarded": {
+    "label": "Bronze:",
+    "type": "icon",
+    "format": "number",
+    "icon": "bronze"
+  },
+  "silvermedalsawarded": {
+    "label": "Silver:",
+    "type": "icon",
+    "format": "number",
+    "icon": "silver"
+  },
+  "goldmedalsawarded":  {
+    "label": "Gold:",
+    "type": "icon",
+    "format": "number",
+    "icon": "gold"
+  },
+  "emailaddress": {
+    "label": "Email:",
+    "type": "",
+    "isEditable": true
+  },
+  "birthdate": "Birthdate:",
+  "addresslocation": "Default address:",
+  "daysnotify": "Days in advance for notify:",
+  "defaultlocationlon": null,
+  "defaultlocationlat": null,
+  "defaultnotificationradius": "Notification of events radius:",
+  "lastloggedin": {
+    "label": "Last logged in:",
+    "type": "datetime"
+  },
+  "isfemale": {
+    "label": "Gender:",
+    "type": "bool",
+    "yesText": "Female",
+    "noText": "Male"
+  },
+  "pw": null,
+  "status_": "Account status:",
+  "receivepushnotifications": {
+    "label": "Receive push notifications:",
+    "type": "bool",
+    "yesText": "Yes",
+    "noText": "Nope"
+  },
+  "subscribedtoemailnewsletters": {
+    "label": "Subscribed via email for news:",
+    "type": "bool",
+    "yesText": "Subscribed",
+    "noText": "Unsubscribed"
+  },
+  "receiveemailnotifications": {
+    "label": "Receive email notifications:",
+    "type": "bool",
+    "yesText": "Yes",
+    "noText": "No"
+  },
+  "receivesms": {
+    "label": "Receive text notifications:",
+    "type": "bool",
+    "yesText": "Yes",
+    "noText": "No"
+  },
+  "emailverified": {
+    "label": "Email verified:",
+    "type": "bool",
+    "yesText": "Verified",
+    "noText": "Not verified"
+  },
+  "phoneverified": {
+    "label": "Phone verified:",
+    "type": "bool",
+    "yesText": "Verified",
+    "noText": "Not verified"
+  }
+}

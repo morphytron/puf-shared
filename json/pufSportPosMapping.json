@@ -1,0 +1,12 @@
+{
+  "id": null,
+  "sportid": null,
+  "rulesid": null,
+  "name_": {"label":  "Position name:"},
+  "dt_created": {"label": "Date added:","type":  "datetime"},
+  "addedbyuid": {"label":  "Created by:", "type":  "uid"},
+  "lastchangedby": {"label":  "Last updated by:", "type":  "uid"},
+  "lastchangedon": {"label": "Last updated:","type":  "datetime"},
+  "min_per_event": {"label":  "Minimum participants at an event:"},
+  "max_per_event": {"label":  "Maximum participants at an event:"}
+}

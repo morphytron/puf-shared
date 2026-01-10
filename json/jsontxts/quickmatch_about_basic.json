@@ -1,0 +1,30 @@
+[
+  {
+    "eleType": "h1",
+    "text": "The Quickmatch: What we Except and Why"
+  },
+  {
+    "eleType": "h2",
+    "text": "The Basics"
+  },
+  {
+    "eleType": null,
+    "text": "A quick match is another way of playing your favorite sport right then and now. You no longer have to wait for an inconvenient time to play your favorite sport or to exercise at a gym like a hamster on a wheel.  As an athlete, you will be able to meet and make new friends. Quick match is the ultimate way to break out of the couch-potato mode that many people fall victim to as a result of ingraining a passive lifestyle since a very young age. This app will reverse that and introduce you to a different way of using your mind, and using the best first-person mode in any non-violent game: yourself. After all, that is what being involved in sports is--you are the vehicle, and your body is what you, the driver, controls. You will become who you want to be by losing weight, becoming fit, and finally participating with other people in similar activities you all enjoy!"
+  },
+  {
+    "eleType": "h2",
+    "text": "The Event Runner"
+  },
+  {
+    "eleType": null,
+    "text": "All participants, except the event runner, should show (optionally) to an event earlier than 15 minutes from when it supposedly starts if the event will oficially start, according to our software.  Imagine if no one shows up, or fewer than expected players show up or they would not show up on time, then the event should not start, right?  That is why we expect at least 25% of the participants of an event to show up 15 minutes earlier than when it starts in order for the event to progress from finalized to started (for event status).\nAn event runner is expected to show up at least 15 minutes in advance in order for him or her to report to our application whether the facility is in use.  If it is, you wouldn't want to show up to a location only to find out that you will not play, right?"
+  },
+  {
+    "eleType": "h2",
+    "text": "Player Etiquette"
+  },
+  {
+    "eleType": null,
+    "text": "We expect all players to participate in an event until it supposedly ends, or when all teams agree to stop it.  We do not want players to cheat the ranking system by joining fake events of which all parties agree to lie, which is why players must check in.  We expect players to treat each other cordially, politely, and respectfully.  In a physical sport, we expect players to not intentionally harm one another.  After an event ends, all players have the opportunity to rate other player's abilities, the facility, and the playable location."
+  }
+]

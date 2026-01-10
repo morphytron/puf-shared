@@ -1,0 +1,12 @@
+{
+  "alphanumeric": "^[a-zA-Z0-9]+$",
+  "phonenumber": "^[0-9]+$",
+  "alphabet": "^[a-zA-Z]+$",
+  "email": "^[a-zA-Z0-9\\.\\-_]+@[a-zA-Z0-9\\.-_]+$",
+  "password": "^[a-zA-Z0-9@\\.-_\\!#\\$%\\^&*=+\\?]+$",
+  "address": "^[a-zA-Z0-9\\.'\\\"\\s]+$",
+  "website": "^[a-zA-Z0-9\\.\\-_#%]+$",
+  "description": "^[a-zA-Z0-9\\s\\.,;:\\\"']+$",
+  "creditcard": "^[0-9]+$",
+  "number": "^[0-9]+$"
+}

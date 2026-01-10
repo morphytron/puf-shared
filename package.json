@@ -1,0 +1,32 @@
+{
+  "name": "shared",
+  "version": "1.0.35",
+  "description": "Shared code between web and rn",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "vitest --coverage --run"
+  },
+  "author": "Daniel Alexander Apatiga",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.931.0",
+    "image-meta": "^0.2.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "latest",
+    "@babel/core": "latest",
+    "@babel/plugin-proposal-throw-expressions": "^7.27.1",
+    "@babel/plugin-transform-typescript": "latest",
+    "@babel/preset-typescript": "latest",
+    "@types/node": "^22.14.1",
+    "@vitest/coverage-v8": "^3.1.1",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.1"
+  },
+  "engines": {
+    "node": "22",
+    "yarn": "4.9.1"
+  },
+  "packageManager": "yarn@4.9.1",
+}

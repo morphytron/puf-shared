@@ -1,0 +1,44 @@
+{
+  "id": null,
+  "addedbyuid": null,
+  "lat": null,
+  "lng": null,
+  "totalratings": "Total ratings:",
+  "voteups": "Vote ups:",
+  "votedowns": "Vote downs:",
+  "avgrating": {
+    "label": "Rating average:",
+    "type": "rating"
+  },
+  "lasteditedby": "Last edited by User #:",
+  "address": "Address:",
+  "description": "Description:",
+  "phonenumber": "Phone number:",
+  "ownerid": null,
+  "website": "Website:",
+  "status_": "Status:",
+  "dt_created": {"label": "Added on:", "type": "date"},
+  "name_": "Name of place:",
+  "lastchangedon": {"label": "Details updated on:", "type": "date"},
+  "unusableuntil": {"label": "Unusable until:", "type": "datetime"},
+  "ispublic": {
+    "label": "Public availability:",
+    "type": "bool",
+    "yesText": "Available",
+    "noText": "Not available"
+  },
+  "hasindoors": {
+
+    "label": "Indoors availability:",
+    "type": "bool",
+    "yesText": "Available",
+    "noText": "Not available"
+  },
+  "hasoutdoors": {
+
+    "label": "Outdoors availability:",
+    "type": "bool",
+    "yesText": "Available",
+    "noText": "Not available"
+  }
+}

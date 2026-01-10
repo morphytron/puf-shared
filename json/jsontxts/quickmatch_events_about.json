@@ -1,0 +1,66 @@
+[
+  {
+    "eleType": "h1",
+    "text": "Everything About Events"
+  },
+  {
+    "eleType": "h2",
+    "text": "How Quickmatches are Created"
+  },
+  {
+    "eleType": null,
+    "text": "The algorithm is actually a bit more complicated than I will explain, below.  It has been optimized more, and the inner workings are beyond the scope of this tutorial. All you need to know is that the playable location is continuously optimized while an event is pending.\nAn event can be in one of five different states, and we are interested in the first four when creating a quick match:"
+  },
+  {
+    "eleType": "h3",
+    "text": "Event status"
+  },
+  {
+    "eleType": "li",
+    "text": "Created"
+  },
+  {
+    "eleType": "li",
+    "text": "Pending"
+  },
+  {
+    "eleType": "li",
+    "text": "Finalized"
+  },
+  {
+    "eleType": "li",
+    "text": "Started"
+  },
+  {
+    "eleType": "li",
+    "text": "Ended"
+  },
+  {
+    "eleType": "li",
+    "text": "Aborted"
+  },
+  {
+    "eleType": "h2",
+    "text": "Before the Pending Event"
+  },
+  {
+    "eleType": null,
+    "text": "As aforementioned, players, coaches, referees, trainers, or instructors enter a matchmaking queue on a server. Our software as a service (SaaS) matches players entering the queue with each other, and if a playable location exists that has a facility they need, an event is created (it is also in the created state)."
+  },
+  {
+    "eleType": "h2",
+    "text": "The Pending Event"
+  },
+  {
+    "eleType": null,
+    "text": "At this point, athletes who have entered the queue have been matched together.  The sport rules have been satisfied, as in, all the requirements of the sport have been met: positions filled, teams created, and team members accounted for.  Before an event can reach the next stage of its lifecycle, aka. \"finalized,\" the event cannot begin unless the event-runner has showed up at least 15 minutes in advance and has pledged for the locations availability."
+  },
+  {
+    "eleType": "h2",
+    "text": "The Finalized Event and Afterwords"
+  },
+  {
+    "eleType": null,
+    "text": "When an event is changed from \"pending\" to \"finalized,\" our service platform allows for more players to join if the sport-rules permits it.  \nAn event starts if all player have showed up or the minimal number of players have checked in.  Players and athletes must check in on their mobile devices upon arriving to the facility or playable location.  After the event has started and ended, players may rate their teammates and opponents, as well as vote for various recognitions that mean a lot about a players' promise.\n"
+  }
+]

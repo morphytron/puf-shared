@@ -1,0 +1,22 @@
+{
+  "id": null,
+  "sport_layout_map": null,
+  "placeid": "Place ID#:",
+  "surface": "Kind of surface:",
+  "type_": "Facility type:",
+  "addedbyuid": null,
+  "description": "About:",
+  "avgrating": {
+    "type": "rating",
+    "label": "Average rating:"
+  },
+  "lasteditedby": null,
+  "lastchangedon": {"type": "date","label": "Last updated on:"},
+  "totalratings": "Total ratings:",
+  "dt_created" : null,
+  "voteups": "Vote ups",
+  "votedowns": "Vote downs",
+  "unusableuntil": null,
+  "totalsize": null,
+  "isindoors": {"type": "bool", "label": "Exterior or interior?", "yesText": "Indoors", "noText": "Outdoors"}
+}

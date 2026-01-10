@@ -1,0 +1,16 @@
+{
+  "uid" : null,
+  "un": {"label":  "Username:"},
+  "firstname": {"label" :  "First name:"},
+  "datejoined": {"label": "Date joined:",
+    "type": "date"},
+  "lastloggedin": {"label": "Last activity:",
+    "type": "date"},
+  "totalathletebadges": {"label": "Total athlete badges:",
+    "type": "icon",
+    "icon": "gold"},
+  "bannedfromqmquntil": {
+    "label": "Banned from q.m.q. until:",
+    "type": "datetime"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "iseventrunner_avg": { "label" :  "As event runner:", "type":  "n_percentage"},
+  "isinstructor_avg": { "label" :  "As instructor:", "type":  "n_percentage"},
+  "is_quickmatch_avg": { "label" :  "In a quickmatch:", "type":  "n_percentage"},
+  "istrainer_avg": { "label" :  "As trainer:", "type":  "n_percentage"},
+  "iscoach_avg": { "label" :  "As coach:", "type":  "n_percentage"},
+  "isplayer_avg": { "label" :  "As player:", "type":  "n_percentage"},
+  "isreferee_avg": { "label" :  "As referee:", "type":  "n_percentage"},
+  "overallskill_avg": { "label" :  "Overall skill:", "type":  "rating"},
+  "endurance_avg": { "label" :  "Endurance:", "type":  "rating"},
+  "dexterity_avg": { "label" :  "Dexterity:", "type":  "rating"},
+  "reaction_avg": { "label" :  "Reaction:", "type":  "rating"},
+  "tactical_avg": { "label" :  "Tactical:", "type":  "rating"},
+  "speed_avg": { "label" :  "Speed:", "type":  "rating"}
+}

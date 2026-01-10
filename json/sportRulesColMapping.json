@@ -1,0 +1,54 @@
+{
+  "position_layout_map": null,
+  "id": null,
+  "dt_created": null,
+  "lastchangedon": {
+    "type" : "date",
+    "label": "Last changed on:"
+  },
+  "sportid": "Sport ID#:",
+  "addedbyuid": null,
+  "rulesname": "Rules name:",
+  "requires_even_no_of_teams": {
+    "type": "bool",
+    "yesText": "Requires even number of teams",
+    "noText": "Teams can be an odd number",
+    "label": "Even teams?"
+  },
+  "status_": "Status:",
+  "requires_runner": {
+    "type": "bool",
+    "noText": "No runner needed",
+    "yesText": "A runner is needed",
+    "label": "Needs an event runner?"
+  },
+  "multiple_teams_can_win": {
+    "type": "bool",
+    "label": "Multiple teams can win?",
+    "yesText": "Yes",
+    "noText": "No"
+  },
+  "prefer_fill_teams": {
+    "label":"Prefer to fill teams?",
+    "type": "bool",
+    "yesText": "Fill teams",
+    "noText": "More teams"
+  },
+  "duration_in_seconds": "Duration in seconds:",
+  "placements_max": "How many teams can place?",
+  "max_coaches_per_team": "Max. coaches per team:",
+  "min_coaches_per_team": "Min. coaches per team:",
+  "team_win_ordering_strategy": null,
+  "additional_conducts": "Basic instructions:",
+  "min_players_per_team": "Min. players per team:",
+  "max_players_per_team": "Max. players per team:",
+  "max_trainers_per_team": "Max. trainers per team:",
+  "min_trainers_per_team": "Min. trainers per team:",
+  "max_instructors_per_team": "Max. instructors per team:",
+  "min_instructors_per_team": "Min. instructors per team:",
+  "min_teams": "Min. teams:",
+  "max_refs": "Max. refs:",
+  "min_refs": "Min. refs:",
+  "max_teams": "Max. teams:",
+  "lasteditedby": "Last edited by User #:"
+}

@@ -1,0 +1,17 @@
+{
+  "id": null,
+  "name_": "Name:",
+  "description": "Description:",
+  "addedbyuid": null,
+  "isapproved": {
+      "label": "Approved for q.m.q.?",
+      "type": "bool",
+    "yesText": "Approved",
+    "noText": "Unapproved"
+  },
+  "moderatoruid": null,
+  "dt_created": {"label": "Date created:", "type": "date"},
+  "status_": "Overall status:",
+  "lasteditedby": "Last edited by User #:",
+  "lastchangedon": null
+}

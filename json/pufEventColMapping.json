@@ -1,0 +1,6 @@
+{
+	"pldescription": { "label": "The location:" },
+	"fdescription": { "label": "The facility:" },
+	"ftype": {"label": "Kind:"},
+	"fsurface": {"label":  "Surface:"}
+}

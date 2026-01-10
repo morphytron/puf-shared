@@ -1,0 +1,11 @@
+{
+  "200": "Retrieved.",
+  "201": "Created.",
+  "204": "Changes saved.",
+  "400": "This was an incorrect request.",
+  "401": "Unauthorized.",
+  "404": "We could not find anything.",
+  "501": "A server is experiences some issues.",
+  "503": "Some servers may be down, please try again later.",
+  "500": "You have encountered a problem, but rest assured, I am working on it!"
+}

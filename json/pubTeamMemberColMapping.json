@@ -1,0 +1,11 @@
+{
+  "id": null,
+  "teamid": null,
+  "x_coordinate": null,
+  "profilepic": null,
+  "y_coordinate": null,
+  "uid": null,
+  "un": { "label": "Username:" },
+  "firstname": {"label": "Player name:"},
+  "position_name": {"label":  "Position:"}
+}

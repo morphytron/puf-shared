@@ -1,0 +1,22 @@
+{
+	"player_ENDURANCE_AVG": "Endurance average",
+	"player_DEXTERITY_AVG": "Dexterity average",
+	"ref_BALANCE_AVG": "Balance average",
+	"trainer_MOTIVATIONAL_AVG": "Motivational average",
+	"player_SPEED_AVG": "Speed average",
+	"player_AWARENESS_AVG": "Awareness average",
+	"ref_HARSHNESS_AVG": "Harshness average",
+	"trainer_ATTENTIVENESS_AVG": "Attentiveness average",
+	"ref_IN_GAME_TIMELINESS_AVG": "In-game timeliness average",
+	"ref_RULES_KNOWLEDGE_AVG": "Rules knowledge average",
+	"coach_DESCRIPTION_AVG": "Description average",
+	"coach_DEDICATION_AVG": "Dedication average",
+	"coach_MOTIVATIONAL_AVG": "Motivational average",
+	"coach_OVERALL_AVG": "Overall average",
+	"coach_STRATEGY_AVG": "Strategy average",
+	"coach_TACTICS_AVG": "Tactics average",
+	"player_TACTICAL_SKILL_AVG": "Tactical ability average",
+	"player_OVERALL_AVG": "Overall average",
+	"trainer_VARIETY_AVG": "Variety average",
+  	"trainer_DIFFICULTY_AVG": "Difficulty average"
+}
