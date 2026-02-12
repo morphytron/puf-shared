@@ -6,6 +6,22 @@ export interface Labelable {
     get key() : number;
 }
 
+class AnonymousCollectable<T> extends Collectable<T> {
+    private the_title = null;
+    private the_key = -1;
+    get title(): string {
+        return this.the_title;
+    }
+    get key() : number {
+        return this.the_key;
+    }
+
+    constructor(ref_ :T, title: string,  key: number) {
+        super(ref_);
+        this.the_key = key;
+        this.the_title = title;
+    }
+}
 /**
  * Requires that title and key are overridden.
  */
@@ -26,6 +42,11 @@ export abstract class Collectable<T> extends HashUtil implements Labelable {
       this.objKeyForA = this.title;
       this.objKeyForB = '' + this.key;
     }
+    
+    public fromObject(obj: {ref: T, title: string, key: number}): Collectable<T> {
+        return new AnonymousCollectable(obj.ref, obj.title, obj.key );
+    }
+
     public toObject() : {ref: T, title: string, key: number} {
         return {
           ref : this.ref_,
