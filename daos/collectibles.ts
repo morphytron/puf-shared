@@ -7,6 +7,7 @@ import {
     SportRules, TeamAndPubEventTeamMember,
 } from '../definitions/schema';
 import { MetaListEntry } from '../definitions/responses';
+
 export class PrimeMapperSportPosition extends CollectablePM<SportPosition> {
     get key(): number {
         return this.ref.id;
@@ -18,12 +19,14 @@ export class PrimeMapperSportPosition extends CollectablePM<SportPosition> {
         super(sport_position);
     }
 }
+
 export type PMTeamAndPubEventTeamMember = {
     members: PrimeMapperPublicEventTeamMember[],
     id: number;
     eventid: number;
     name: string;
 }
+
 export class PrimeMapperPublicTeamAndEventTeamMember extends CollectablePM<PMTeamAndPubEventTeamMember> {
     get key() : number {
         return this.ref.id;
@@ -36,6 +39,7 @@ export class PrimeMapperPublicTeamAndEventTeamMember extends CollectablePM<PMTea
         super(teamAndPubEventTeamMember);
     }
 }
+
 export class PrimeMapperPublicEventTeamMember extends CollectablePM<PufPubEventTeamMember> {
     get key() : number {
         return this.ref.id;
@@ -47,6 +51,7 @@ export class PrimeMapperPublicEventTeamMember extends CollectablePM<PufPubEventT
         super(pufpubteammember);
     }
 }
+
 export class PrimeMapperSportRules extends CollectablePM<SportRules> {
     get key(): number {
         return this.ref.id;

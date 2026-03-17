@@ -251,11 +251,6 @@ export type OptionalEntryConfig = {
 	is_collectable?: boolean;
 }
 
-export interface BasicPMEntity {
-	key: number;
-	value: number;
-}
-
 export class Entry<T> {
 	name: string | number;
 	value: string | any;

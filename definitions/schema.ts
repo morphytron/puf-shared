@@ -221,7 +221,7 @@ export interface Sport {
     lasteditedby : number;
 }
 
-export interface SportRules {
+export type SportRules = {
     id: number;
     sportid: number;
     dt_created: string | Date;
@@ -229,11 +229,6 @@ export interface SportRules {
     addedbyuid: number;
     lasteditedby: string;
     rulesname: string;
-    requires_even_no_of_teams: boolean;
-    additional_conducts: string;
-    min_players_per_team: number;
-    age_divider_type: number;
-    max_players_per_team: number;
     status : string;
     min_teams: number;
     max_teams: number;
@@ -241,6 +236,8 @@ export interface SportRules {
     placements_max: number;
     team_win_ordering_strategy: string;
     requires_runner: boolean;
+    duration_in_seconds: number;
+    position_layout_map: { [key: string] : number; };
     max_coaches_per_team : number;
     max_trainers_per_team: number;
     max_instructors_per_team: number;
@@ -250,8 +247,11 @@ export interface SportRules {
     min_instructors_per_team: number;
     min_refs: number;
     prefer_fill_teams: boolean;
-    duration_in_seconds: number;
-    position_layout_map: Object | any;
+    requires_even_no_of_teams: boolean;
+    additional_conducts: string;
+    min_players_per_team: number;
+    age_divider_type: number;
+    max_players_per_team: number;
 }
 
 export interface SportInterest {
@@ -261,7 +261,7 @@ export interface SportInterest {
     selfproclaimedability: number;
 }
 
-export interface SportPosition {
+export type SportPosition = {
     id: number;
     rulesid: number;
     name: string;
@@ -296,7 +296,7 @@ export interface PlayableLocation {
     unusableuntil: string;
 }
 
-export interface Facility {
+export type Facility = {
     id: number;
     placeid: number;
     addedbyuid: number;
@@ -393,7 +393,7 @@ export interface SocialMessage {
  *         pub rules_percentage: f32,
  */
 // Statistic view
-export interface UserSportParticipationStats {
+export type UserSportParticipationStats = {
     uid: number;
     sportname: string;
     rulesname: string;
@@ -404,7 +404,7 @@ export interface UserSportParticipationStats {
     rules_percentage: number;
 }
 
-export interface SuggestedEvent {
+export type SuggestedEvent = {
     id: number;
     runbyuid: number | null;
     age_group: number;
@@ -462,7 +462,7 @@ export interface SuggestedEvent {
  *         pub age_group: i16,
  *         pub coed_or_gender: String,
  */
-export interface PufEvent {
+export type PufEvent = {
     id: number;
     sportname : null | string;
     is_quickmatch: boolean;
@@ -481,7 +481,7 @@ export interface PufEvent {
     coed_or_gender: Gender |'c'; // c for coed.
 }
 
-export interface UserEvent {
+export type UserEvent = {
     id: number;
     uid: number;
     age_group: number;

@@ -28,14 +28,11 @@ export type MetaDevice = {
     updateLastLoggedOn: boolean;
 }
 
-/**
- * The key is the sportid.  It can be negative or not.  If it is negative,
- * the number follows specific derivable value from the formula:
- *
- * If the key is positive, it follows a different value from this
- * different formula:
- */
-export type PrimeMapperMap = {[key: number] : number};
+
+export enum PrimeMappingStatus {
+	PASSES_ALL, FAILS_OVERLAP_ONLY, FAILS_MIN_ONLY, FAILS_MAX_ONLY, FAILS_MIN_AND_THRESHOLD,
+	FAILS_MAX_AND_THRESHOLD, FAILS_MIN_AND_MAX, FAILS_ALL, EXTRA_ENTITY_ID_NOT_FOUND_IN_RULE_MAP
+}
 
 
 /**
