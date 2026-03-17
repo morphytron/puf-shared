@@ -1,4 +1,6 @@
 import { Collectable } from '../src/collectable_utils';
+import { getBindingIdentifiers } from '@babel/types';
+import keys = getBindingIdentifiers.keys;
 
 export type Invite = {
     tablekey: number;
@@ -307,7 +309,7 @@ export interface Facility {
     surface: string;
     a_type: string;
     totalsize: number;
-    sport_layout_map: Object;
+    sport_layout_map: {[keys: string]: number};
 }
 
 export interface Team {

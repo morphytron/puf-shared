@@ -1,9 +1,10 @@
 import { Collectable, CollectablePM } from '../src/collectable_utils';
 import {
-	PufPubEventTeamMember,
-	Sport,
-	SportPosition,
-	SportRules, TeamAndPubEventTeamMember,
+    PufEvent,
+    PufPubEventTeamMember,
+    Sport,
+    SportPosition,
+    SportRules, TeamAndPubEventTeamMember,
 } from '../definitions/schema';
 import { MetaListEntry } from '../definitions/responses';
 export class PrimeMapperSportPosition extends CollectablePM<SportPosition> {
@@ -55,6 +56,23 @@ export class PrimeMapperSportRules extends CollectablePM<SportRules> {
     }
     constructor(sr: SportRules) {
         super(sr);
+    }
+}
+
+/**
+ * The prime mapper aspect of this object is the underlying sport entity that
+ * it has
+ * a reference to.
+ */
+export class PrimeMapperEvent extends CollectablePM<PufEvent> {
+    get title(): string {
+        return this.ref.sportname;
+    }
+    get key(): number {
+        return this.ref.sportid;
+    }
+    constructor(eve: PufEvent) {
+        super(eve);
     }
 }
 
