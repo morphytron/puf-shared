@@ -2,11 +2,11 @@ import { Entry, SubRule } from '../definitions/ui';
 import { PrimeMappingStatus } from '../definitions/generic';
 import { CollectablePM, PrimeConstraint } from './collectable_utils';
 
+const primes = [23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313];
 export interface Ruleable {
 	toSubRule(val: number): SubRule;
 }
 
-export const primes = require('../json/primeNumbers.json');
 
 
 /**
@@ -14,7 +14,7 @@ export const primes = require('../json/primeNumbers.json');
  * @param value
  */
 export const logBase2MinCount = (value: number): number => {
-	if (value / 2 !== 0 && value % 2 === 0) {
+	if (value % 2 === 0) {
 		return logBase2MinCount(value / 2) + 1 as number;
 	}
 	return 0;
@@ -25,7 +25,7 @@ export const logBase2MinCount = (value: number): number => {
  * @param value
  */
 export const logBase3MaxCount = (value: number): number => {
-	if (value / 3 !== 0 && value % 3 === 0) {
+	if (value % 3 === 0) {
 		return logBase3MaxCount(value / 3) + 1 as number;
 	}
 	return 0;
@@ -33,13 +33,11 @@ export const logBase3MaxCount = (value: number): number => {
 
 export const deriveThresholdFromValue = (value: number): number => {
 	let derivedValue = value;
-	for (let prime of primes.primes) {
-		//console.debug('prime is', prime);
+	for (let prime of primes) {
 		while (derivedValue % prime === 0) {
 			derivedValue = derivedValue / prime;
 		}
 	}
-	//console.debug("[deriveThresholdFromValue(val)...] Derived threshold value before subtracting one is: " + derivedValue);
 	return derivedValue; //subtract one to get actual threshold since we added 1 to prevent lcf of 0.
 };
 
@@ -67,6 +65,7 @@ export const getCountOfPrimeKeysInValue = (val: number, prime_key_value: number)
  * Returns the map of prime numbers to its corresponding entity id, the
  * former of which
  * would be used in values
+ * Note: unsorted-ids array must be all positive and must be unique.
  * @param ids
  */
 export const getPrimeKeyOrderingMapAndSortedIdsFromUnsortedIds = (ids: Array<number>): {
@@ -76,7 +75,7 @@ export const getPrimeKeyOrderingMapAndSortedIdsFromUnsortedIds = (ids: Array<num
 	const prime_layout_map = new Map<number, number>();
 	ids = ids.filter(e => e >= 0).sort((a, b) => (a > b ? 1 : -1));
 	ids.forEach((e, i) => {
-		prime_layout_map.set(primes.primes[i], e);
+		prime_layout_map.set(primes[i], e);
 	});
 	console.debug('getPrimeKeyOrderingMapFromUnsortedIds result.', prime_layout_map);
 	return { sortedIds: ids, primeLayoutMap: prime_layout_map };
@@ -85,23 +84,22 @@ export const getPrimeKeyOrderingMapAndSortedIdsFromUnsortedIds = (ids: Array<num
 /**
  * Returns the map of entity-id keys to the corresponding prime number that
  * would be used in values.
+ * Note: unlike
+ * getPrimeKeyOrderingMapAndSortedIdsFromUnsortedIds(...) method, the rules
+ * map can have positive or negative entity ids.
  * @param rule_map
  */
 export const getPrimeKeyOrderingMapFromRuleMap = (rule_map: Map<number, number>): {
 	sortedIds: number[],
 	primeLayoutMap: Map<number, number>
 } => {
-	let temp_set = new Array();
+	const temp_set = new Set();
 	rule_map.forEach((key) => {
 		const val = Math.abs(key);
-		for (let i of temp_set) {
-			if (i === val) {
-				return;
-			}
-		}
-		temp_set.push(val);
+		temp_set.add(val);
 	});
-	return getPrimeKeyOrderingMapAndSortedIdsFromUnsortedIds(temp_set);
+	const arr = Array.from(temp_set) as number[];
+	return getPrimeKeyOrderingMapAndSortedIdsFromUnsortedIds(arr);
 };
 
 
@@ -116,10 +114,10 @@ export const getCountMapOfIdsByEntryKey = (entries: Entry<CollectablePM<any>>[])
 	entries.forEach((e) => {
 		let entity = e.data[0];
 		if (map.get(entity.key) || typeof (map.get(entity.key)) === 'number') {
-			let val = map.get(e.data[0].key) + 1;
+			let val = map.get(entity.key) + 1;
 			map.set(entity.key, val);
 		} else {
-			map.set(entity.key, 0);
+			map.set(entity.key, 1);
 		}
 	});
 	return map;
@@ -181,12 +179,21 @@ export const getOverlapCountIds = (value: number, entityIdCounts: Map<number, nu
 	overlapCountIds: Map<number, number>
 } => {
 	const map = new Map<number, number>();
+	let arr = entityIdCounts.keys().toArray();
+	const set = new Set();
+	arr.forEach((e) => {
+		set.add(Math.abs(e));
+	});
+	arr = Array.from(set) as number[];
 	const {
 		sortedIds,
 		primeLayoutMap,
-	} = getPrimeKeyOrderingMapAndSortedIdsFromUnsortedIds(entityIdCounts.keys().toArray().filter(val => val >= 0));
+	} = getPrimeKeyOrderingMapAndSortedIdsFromUnsortedIds(arr);
+	console.debug('primeLayoutMap + size', primeLayoutMap, primeLayoutMap.size);
 	for (let i = 0; i < primeLayoutMap.size; i++) {
+		console.debug('value + primes[i]', value, primes[i]);
 		const count = getFactorCount(value, primes[i]);
+		console.debug(`Factor count=${count} for id=${sortedIds[i]}`);
 		map.set(sortedIds[i], count);
 	}
 	console.debug('getOverlapCountIds result', map);
@@ -197,7 +204,8 @@ export const getOverlapCountIds = (value: number, entityIdCounts: Map<number, nu
 /**
  * This will check whether the proposedCountOfIds is valid for the ruleMap.
  * If there is an extra entity id not found on the rule map, then it will
- * return a fail error.
+ * return a EXTRA_ENTITY_ID_NOT_FOUND_IN_RULE_MAP error, otherwise, it will
+ * test the map for validity.
  * @param ruleMap
  * @param proposedCountOfIds
  */
@@ -267,9 +275,10 @@ export const test_map_is_valid = (ruleMap: Map<number, number>, proposedCountOfI
 				const overlapIdsMap = constraint.overlapIdsCount;
 				overlapIdsMap.entries().forEach(([overlappingPositionId, overlapCount]) => {
 					let overlap_current_count = proposedCountOfIds.get(overlappingPositionId) || 0;
-
+					console.debug('[overlappingPositionId, overlapCount,' +
+						' overlap_current_count]',[overlappingPositionId, overlapCount, overlap_current_count]);
 					///important! // Rounds up
-					overlapequivelant = Math.ceil(overlap_current_count / overlapCount) + overlapequivelant;
+					if (overlapCount !== 0) overlapequivelant = Math.ceil(overlap_current_count / overlapCount) + overlapequivelant;
 				});
 				let result = constraint.max - overlapequivelant - count;
 				console.debug('This is the resulting overlap' +

@@ -33,7 +33,6 @@ export class RuleSetUtil {
         return val;
     }
     public static getRuleSet_SportPositions(s : SportRules) : Map<number, number> {
-
         return RuleSetUtil.getNumberToNumberMapFromResponse(s.position_layout_map);
     }
     public static getRuleSet_FacilitySports(f : Facility) : Map<number, number> {
