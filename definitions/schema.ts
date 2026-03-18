@@ -461,6 +461,9 @@ export type SuggestedEvent = {
  *         pub timefinished: Option<DateTimeUtc>,
  *         pub age_group: i16,
  *         pub coed_or_gender: String,
+ *
+ *         CREATED("CREATED"), PENDING("PENDING"), FINALIZED("FINALIZED"), STARTED("STARTED"), ABORTED("ABORTED"),ENDED("ENDED");
+ *
  */
 export type PufEvent = {
     id: number;
@@ -473,7 +476,7 @@ export type PufEvent = {
     addedbyuid: number;
     lastchangedon: string;
     facilityid: null | number;
-    status : string;
+    status : 'CREATED' | 'PENDING' | 'FINALIZED' | 'STARTED' | 'ABORTED' | 'ENDED';
     sportid: number;
     timeends: null | string;
     timefinished: null | string;

@@ -26,10 +26,12 @@ export class RuleSetUtil {
     public static getNumberToNumberMapFromResponse(respObj : {[keys : string] : number}) : Map<number, number> {
         const val = new Map();
         Object.entries(respObj).forEach((o) => {
+            //alert(JSON.stringify(o));
             const key = Number(o[0]);
-            const v = o[1];
+            const v = Number(o[1]);
             val.set(key,  v);
         });
+        console.debug('getNumberToNumberMapFromResponse:', val);
         return val;
     }
     public static getRuleSet_SportPositions(s : SportRules) : Map<number, number> {
