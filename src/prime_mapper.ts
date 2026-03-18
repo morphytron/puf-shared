@@ -228,9 +228,10 @@ export const strict_test_map_is_valid = (ruleMap: Map<number, number>, proposedC
  * @param constraint
  * @param proposedCountOfIds
  */
-export const passes_threshold_test = (entityId: number, constraint : PrimeConstraint, proposedCountOfIds : Map<number, number>) : boolean  => {
+export const passes_threshold_test = (entityId: number, constraint : PrimeConstraint, proposedCountOfIds : Map<number, number>) : {passes: boolean, result: number}  => {
 	const threshold = constraint.threshold;
 	const count = proposedCountOfIds.get(entityId) || 0;
+	let result = count;
 	if (threshold != -1) {
 			if (count >= threshold) {
 				console.debug('Value exceeds threshold, so reducing max equivalent...');
@@ -243,15 +244,15 @@ export const passes_threshold_test = (entityId: number, constraint : PrimeConstr
 					///important! // Rounds up
 					if (overlapCount !== 0) overlapequivelant = Math.ceil(overlap_current_count / overlapCount) + overlapequivelant;
 				});
-				const result = constraint.max - overlapequivelant - count;
+				result = constraint.max - overlapequivelant - count;
 				console.debug('This is the resulting overlap' +
 					' equivelancy (negative is bad and positive or zero is good): ' + result + '.');
 				if (result < 0) {
-					return false;
+					return {passes: false, result: result};
 				}
 			}
 		}
-	return true;
+	return {passes: true, result: result};
 };
 /**
  * Returns a map of all constraints by entity id.
@@ -311,7 +312,7 @@ export const test_map_is_valid = (ruleMap: Map<number, number>, proposedCountOfI
 			console.debug(`[test_map_is_valid] fails min because min=${constraint.min}, and count=${count}`);
 			passesMinTest = false;
 		}
-		passesOverlapThresholdTest &&= passes_threshold_test(id, constraint, proposedCountOfIds);
+		passesOverlapThresholdTest &&= passes_threshold_test(id, constraint, proposedCountOfIds).passes;
 	}
 	if (passesOverlapThresholdTest && passesMaxTest && passesMinTest) {
 		return PrimeMappingStatus.PASSES_ALL;
