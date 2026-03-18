@@ -218,19 +218,47 @@ export const strict_test_map_is_valid = (ruleMap: Map<number, number>, proposedC
 	return test_map_is_valid(ruleMap, proposedCountOfIds);
 }
 
+
 /**
- * The proposedCountOfIds has a count of each id in the current system.  If
- * it violates any rules set forth by the ruleMap, then a fail error is
- * returned, if not: PASSES_ALL.  Note: this does not check whether
- * proposedCountOfIds keys match the ruleMap keys.  For that check, use strict_test_map_is_valid.
+ * For a given entity id, check whether the existing or proposed count of
+ * ids would exceed the threshold and if it does, then check whether the
+ * result exceeds the constraints.  Returns false if result is negative
+ * (fails check) and true if it passes.
+ * @param entityId
+ * @param constraint
+ * @param proposedCountOfIds
  */
-export const test_map_is_valid = (ruleMap: Map<number, number>, proposedCountOfIds: Map<number, number>): PrimeMappingStatus => {
-	const ruleIds = getUnsortedIdsFromRuleMap(ruleMap);
-	let passesMaxTest = true;
-	let passesMinTest = true;
-	let passesOverlapThresholdTest = true;
-	const ids_list = proposedCountOfIds.keys().toArray().filter(val => val >= 0).sort((a, b) => (a > b ? 1 : -1));
-	console.debug('ids_list in test_map_is_valid', ids_list);
+export const passes_threshold_test = (entityId: number, constraint : PrimeConstraint, proposedCountOfIds : Map<number, number>) : boolean  => {
+	const threshold = constraint.threshold;
+	const count = proposedCountOfIds.get(entityId) || 0;
+	if (threshold != -1) {
+			if (count >= threshold) {
+				console.debug('Value exceeds threshold, so reducing max equivalent...');
+				let overlapequivelant = 0;
+				const overlapIdsMap = constraint.overlapIdsCount;
+				overlapIdsMap.entries().forEach(([overlappingPositionId, overlapCount]) => {
+					let overlap_current_count = proposedCountOfIds.get(overlappingPositionId) || 0;
+					console.debug('[overlappingPositionId, overlapCount,' +
+						' overlap_current_count]',[overlappingPositionId, overlapCount, overlap_current_count]);
+					///important! // Rounds up
+					if (overlapCount !== 0) overlapequivelant = Math.ceil(overlap_current_count / overlapCount) + overlapequivelant;
+				});
+				const result = constraint.max - overlapequivelant - count;
+				console.debug('This is the resulting overlap' +
+					' equivelancy (negative is bad and positive or zero is good): ' + result + '.');
+				if (result < 0) {
+					return false;
+				}
+			}
+		}
+	return true;
+};
+/**
+ * Returns a map of all constraints by entity id.
+ * @param ruleMap
+ * @param proposedCountOfIds
+ */
+export const get_all_constraints_by_id = (ruleMap : Map<number, number>, proposedCountOfIds: Map<number,  number>): Map<number, PrimeConstraint> => {
 	const all_constraints_by_id = new Map<number, PrimeConstraint>();
 	ruleMap.entries().forEach(([key, value]) => {
 		if (value === 0) {
@@ -255,6 +283,22 @@ export const test_map_is_valid = (ruleMap: Map<number, number>, proposedCountOfI
 		}/*
 		all_constraints_by_id.set(abs_key, primeConstraint);*/
 	});
+	return all_constraints_by_id;
+};
+/**
+ * The proposedCountOfIds has a count of each id in the current system.  If
+ * it violates any rules set forth by the ruleMap, then a fail error is
+ * returned, if not: PASSES_ALL.  Note: this does not check whether
+ * proposedCountOfIds keys match the ruleMap keys.  For that check, use strict_test_map_is_valid.
+ */
+export const test_map_is_valid = (ruleMap: Map<number, number>, proposedCountOfIds: Map<number, number>): PrimeMappingStatus => {
+	const ruleIds = getUnsortedIdsFromRuleMap(ruleMap);
+	let passesMaxTest = true;
+	let passesMinTest = true;
+	let passesOverlapThresholdTest = true;
+	const ids_list = proposedCountOfIds.keys().toArray().filter(val => val >= 0).sort((a, b) => (a > b ? 1 : -1));
+	console.debug('ids_list in test_map_is_valid', ids_list);
+	const all_constraints_by_id = get_all_constraints_by_id(ruleMap, proposedCountOfIds);
 	for (let id of ids_list) {
 		const constraint: PrimeConstraint = all_constraints_by_id.get(id);
 		console.debug('[constraints for entity-' + id, constraint);
@@ -267,27 +311,7 @@ export const test_map_is_valid = (ruleMap: Map<number, number>, proposedCountOfI
 			console.debug(`[test_map_is_valid] fails min because min=${constraint.min}, and count=${count}`);
 			passesMinTest = false;
 		}
-		const threshold = constraint.threshold;
-		if (threshold != -1) {
-			if (count >= threshold) {
-				console.debug('Value exceeds threshold, so reducing max equivalent...');
-				let overlapequivelant = 0;
-				const overlapIdsMap = constraint.overlapIdsCount;
-				overlapIdsMap.entries().forEach(([overlappingPositionId, overlapCount]) => {
-					let overlap_current_count = proposedCountOfIds.get(overlappingPositionId) || 0;
-					console.debug('[overlappingPositionId, overlapCount,' +
-						' overlap_current_count]',[overlappingPositionId, overlapCount, overlap_current_count]);
-					///important! // Rounds up
-					if (overlapCount !== 0) overlapequivelant = Math.ceil(overlap_current_count / overlapCount) + overlapequivelant;
-				});
-				let result = constraint.max - overlapequivelant - count;
-				console.debug('This is the resulting overlap' +
-					' equivelancy (negative is bad and positive or zero is good): ' + result + '.');
-				if (result < 0) {
-					passesOverlapThresholdTest = false;
-				}
-			}
-		}
+		passesOverlapThresholdTest &&= passes_threshold_test(id, constraint, proposedCountOfIds);
 	}
 	if (passesOverlapThresholdTest && passesMaxTest && passesMinTest) {
 		return PrimeMappingStatus.PASSES_ALL;
