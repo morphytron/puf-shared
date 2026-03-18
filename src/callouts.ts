@@ -27,7 +27,6 @@ import {
     LocationRequest,
     QmQEntryRequest,
     QueryType,
-    S3ResourceType,
     SessionRequest,
     Verification,
 } from '../definitions/requests';
@@ -61,6 +60,7 @@ import {Notification} from './notifications';
 import {Query, QueryInfo} from './querying';
 import {MetaDevice} from '../definitions/generic';
 import getEnvironment from "../environment/environment";
+import { S3ResourceType } from './aws_s3';
 
 export class NetworkMethods {
 
