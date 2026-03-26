@@ -281,8 +281,7 @@ export const get_all_constraints_by_id = (ruleMap : Map<number, number>, propose
 			// it is a threshold rule
 			primeConstraint.threshold = deriveThresholdFromValue(value);
 			primeConstraint.overlapIdsCount = getOverlapCountIds(value, proposedCountOfIds).overlapCountIds;
-		}/*
-		all_constraints_by_id.set(abs_key, primeConstraint);*/
+		}
 	});
 	return all_constraints_by_id;
 };
