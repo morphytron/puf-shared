@@ -182,4 +182,14 @@ export default class Timehelper {
 			}
 		}
 	}
+
+	public static isBeforeNow(date: Date) : boolean {
+		const now = new Date();
+		return date.getTime() < now.getTime();
+	}
+
+	public static isAfterNow(date: Date) : boolean {
+		const now = new Date();
+		return date.getTime() > now.getTime();
+	}
 }
