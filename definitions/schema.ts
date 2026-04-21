@@ -267,7 +267,7 @@ export type SportPosition = {
     name: string;
     x_coordinate: number;
     y_coordinate: number;
-    exercise: string;
+    exercise?: string;
     sportid: number;
     min_per_event: number;
     max_per_event: number;
