@@ -471,7 +471,7 @@ export type PufEvent = {
     sportname : null | string;
     is_quickmatch: boolean;
     rulesid: number;
-    dt_created: number;
+    dt_created: string;
     placeid: number;
     timestarts: null | string;
     addedbyuid: number;
