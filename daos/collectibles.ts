@@ -29,7 +29,6 @@ export type PMTeamAndPubEventTeamMember = {
 
 
 export class PrimeMapperTeamMember extends CollectablePM<TeamMember> {
-
     get key(): number {
         return this.ref.id;
     }

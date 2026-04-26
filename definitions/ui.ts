@@ -346,4 +346,23 @@ export const emptyEventFilter = {
 	sportSelectedFilter: [],
 	filterIsDisabled: true,
 };
+
 export type EventFilter = typeof emptyEventFilter;
+
+export type TeamPositionInfo = {
+	id: number;
+	un: string; // username
+	firstname: string; // firstname
+	position_name: string;
+	x_coordinate: number;
+	y_coordinate: number;
+}
+
+export type PositionInfo = {
+	id: number;
+	x_coordinate: number;
+	y_coordinate: number;
+	name: string;
+	min_per_event?: number;
+	max_per_event?: number;
+}
