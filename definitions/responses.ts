@@ -294,7 +294,7 @@ export type FacilityEvents = {
  *     private PlayableLocations playableLocation;
  */
 export type EntryResponse = {
-    eventUserMembers: EventUserMember;
+    eventMember: EventUserMember;
     rules: SportRules;
     sport: Sport;
     team: Team;
