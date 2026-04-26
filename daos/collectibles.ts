@@ -4,7 +4,7 @@ import {
     PufPubEventTeamMember,
     Sport,
     SportPosition,
-    SportRules, TeamAndPubEventTeamMember,
+    SportRules, TeamAndPubEventTeamMember, TeamMember,
 } from '../definitions/schema';
 import { MetaListEntry, TeamAndMembers } from '../definitions/responses';
 
@@ -25,6 +25,20 @@ export type PMTeamAndPubEventTeamMember = {
     id: number;
     eventid: number;
     name: string;
+}
+
+
+export class PrimeMapperTeamMember extends CollectablePM<TeamMember> {
+
+    get key(): number {
+        return this.ref.id;
+    }
+    get title(): string {
+        return this.ref.assignedrole;
+    }
+    constructor(teamMap : TeamMember)  {
+        super(teamMap);
+    }
 }
 
 export class PrimeMapperTeamAndMembers extends CollectablePM<TeamAndMembers>  {
