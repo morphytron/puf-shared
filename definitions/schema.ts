@@ -313,7 +313,7 @@ export type Facility = {
     sport_layout_map: {[keys: string]: number};
 }
 
-export interface Team {
+export type Team = {
     id : number;
     name: string;
     addedbyuid: number;

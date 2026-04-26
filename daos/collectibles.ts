@@ -6,7 +6,7 @@ import {
     SportPosition,
     SportRules, TeamAndPubEventTeamMember,
 } from '../definitions/schema';
-import { MetaListEntry } from '../definitions/responses';
+import { MetaListEntry, TeamAndMembers } from '../definitions/responses';
 
 export class PrimeMapperSportPosition extends CollectablePM<SportPosition> {
     get key(): number {
@@ -26,6 +26,20 @@ export type PMTeamAndPubEventTeamMember = {
     eventid: number;
     name: string;
 }
+
+export class PrimeMapperTeamAndMembers extends CollectablePM<TeamAndMembers>  {
+    get key() : number {
+        return this.ref.team.id;
+    }
+    get title(): string {
+        return this.ref.team.name;
+    }
+
+    constructor(teamAndTeamMembers: TeamAndMembers) {
+        super(teamAndTeamMembers);
+    }
+}
+
 
 export class PrimeMapperPublicTeamAndEventTeamMember extends CollectablePM<PMTeamAndPubEventTeamMember> {
     get key() : number {
