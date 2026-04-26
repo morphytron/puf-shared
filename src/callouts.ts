@@ -48,7 +48,7 @@ import {
 	SportPosition,
 	SportRules,
 	SuggestedEvent,
-	TeamAndPubEventTeamMember,
+	TeamAndPubEventTeamMember, TeamMember,
 	User,
 	UserBadge,
 	UserEvent,
@@ -1212,6 +1212,23 @@ export class NetworkMethods {
 			'get',
 		);
 	}
+
+
+	public static promisifyGetTeamMembersByTeamId(relogin: ReloginInfo, network: INetwork, token: string,
+	                                                         tid: number)
+		: Promise<ServerResponse<TeamMember[] | NoResultsResponse>> {
+		return network.start(
+			relogin,
+			token,
+			new HttpCall()
+				.set_postfix_uri('api/teamMembers/teamid/' + tid)
+				.set_service(Service.Api)
+				.set_no_messages(true),
+			undefined,
+			'get',
+		);
+	}
+
 
 
 	/**
