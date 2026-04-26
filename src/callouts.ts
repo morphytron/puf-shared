@@ -1162,7 +1162,7 @@ export class NetworkMethods {
 	 */
 	public static promisifyGetTeamnameAndTeammembersByEventId(relogin: ReloginInfo, network: INetwork, token: string,
 	                                                          eid: number,
-	): Promise<ServerResponse<Pageable<TeamAndPubEventTeamMember>>> {
+	): Promise<ServerResponse<TeamAndPubEventTeamMember[]  | NoResultsResponse>> {
 		return network.start(
 			relogin,
 			token,
@@ -1185,7 +1185,7 @@ export class NetworkMethods {
 	 */
 	public static promisifyGetPubTeamBembersByTeamId(relogin: ReloginInfo, network: INetwork, token: string,
 	                                                          tid: number,
-	): Promise<ServerResponse<PufPubEventTeamMember[]>> {
+	): Promise<ServerResponse<PufPubEventTeamMember[] | NoResultsResponse>> {
 		return network.start(
 			relogin,
 			token,
@@ -1200,7 +1200,7 @@ export class NetworkMethods {
 
 	public static promisifyGetPublicEventTeamMembersByTeamId(relogin: ReloginInfo, network: INetwork, token: string,
 	                                                         tid: number)
-		: Promise<ServerResponse<Pageable<TeamAndMembers>>> {
+		: Promise<ServerResponse<TeamAndMembers[] | NoResultsResponse>> {
 		return network.start(
 			relogin,
 			token,
@@ -1223,7 +1223,7 @@ export class NetworkMethods {
 	 */
 	public static promisifyGetTeamAndTeammembers(relogin: ReloginInfo, network: INetwork, token: string,
 	                                             tid: number,
-	): Promise<ServerResponse<Pageable<TeamAndMembers>>> {
+	): Promise<ServerResponse<TeamAndMembers | NoResultsResponse>> {
 		return network.start(
 			relogin,
 			token,
