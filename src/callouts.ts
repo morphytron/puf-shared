@@ -14,7 +14,7 @@ import {
     ServerResponse,
     ServerStatistics,
     SessionResponse,
-    SubscriptionWrapper,
+    SubscriptionWrapper, TeamAndMembers,
     UserAndAccount,
 } from '../definitions/responses';
 import {HttpCall, INetwork, ReloginInfo, Service} from './network';
@@ -1152,18 +1152,33 @@ export class NetworkMethods {
         );
     }
 
-    public static promisifyGetTeamAndTeammembers(relogin: ReloginInfo, network: INetwork, token: string,
-                                                 eid: number,
-    ): Promise<ServerResponse<TeamAndPubEventTeamMember[]>> {
+    public static promisifyGetTeamnameAndTeammembersByEventId(relogin: ReloginInfo, network: INetwork, token: string,
+                                                              eid: number,
+    ): Promise<ServerResponse<Pageable<TeamAndPubEventTeamMember>>> {
         return network.start(
-            relogin,
-            token,
-            new HttpCall()
-                .set_postfix_uri('api/teamsAndPubTeamMembers/allby/eventid/' + eid)
-                .set_service(Service.Api)
-                .set_success_msg('Found :count teams'),
-            undefined,
-            'get',
+          relogin,
+          token,
+          new HttpCall()
+            .set_postfix_uri('api/teamsAndPubTeamMembers/allby/eventid/' + eid)
+            .set_service(Service.Api)
+            .set_success_msg('Found :count teams'),
+          undefined,
+          'get',
+        );
+    }
+
+    public static promisifyGetTeamAndTeammembers(relogin: ReloginInfo, network: INetwork, token: string,
+                                                 tid: number,
+    ): Promise<ServerResponse<Pageable<TeamAndMembers>>> {
+        return network.start(
+          relogin,
+          token,
+          new HttpCall()
+            .set_postfix_uri('api/teamAndMembers/teamid/' + tid)
+            .set_service(Service.Api)
+            .set_no_messages(true),
+          undefined,
+          'get',
         );
     }
 
