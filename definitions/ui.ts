@@ -1,7 +1,7 @@
 // player user stats
 import {
 	PlayerStats, Team,
-	TeamAndPubEventTeamMember,
+	TeamMetaAndPubEventTeamMember,
 	UserSportParticipationStats,
 } from './schema';
 import { HttpCall } from '../src/network';
@@ -238,7 +238,7 @@ export type SubRule = {
 	entityId: number;
 	ruleValue: number;
 };
-export type TeamWithPubEventTeamMembers = TeamAndPubEventTeamMember & {
+export type TeamWithPubEventTeamMembers = TeamMetaAndPubEventTeamMember & {
 	team: Team;
 }
 export type OptionalEntryConfig = {

@@ -361,7 +361,13 @@ export interface PufPubEventTeamMember {
 }
 
 export type Gender = 'f' | 'm';
-export interface TeamAndPubEventTeamMember {
+
+export type TeamAndPubEventTeamMember = {
+    team: Team;
+    members: null | PufPubEventTeamMember[];
+}
+
+export interface TeamMetaAndPubEventTeamMember {
     id: number;
     eventid: number;
     name: string;

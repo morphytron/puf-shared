@@ -48,13 +48,13 @@ import {
 	SportPosition,
 	SportRules,
 	SuggestedEvent,
-	TeamAndPubEventTeamMember, TeamMember,
+	TeamMetaAndPubEventTeamMember, TeamMember,
 	User,
 	UserBadge,
 	UserEvent,
 	UserSportParticipationStats,
 	Vote,
-	VoteSessionVotesEventMembers,
+	VoteSessionVotesEventMembers, TeamAndPubEventTeamMember,
 } from '../definitions/schema';
 import { Notification } from './notifications';
 import { Query, QueryInfo } from './querying';
@@ -1160,7 +1160,7 @@ export class NetworkMethods {
 	 * @param token
 	 * @param eid
 	 */
-	public static promisifyGetTeamnameAndPubEventTeammembersByEventId(relogin: ReloginInfo, network: INetwork, token: string,
+	public static promisifyGetTeamsAndPubEventTeammembersByEventId(relogin: ReloginInfo, network: INetwork, token: string,
 	                                                                  eid: number,
 	): Promise<ServerResponse<TeamAndPubEventTeamMember[]  | NoResultsResponse>> {
 		return network.start(
@@ -1168,6 +1168,29 @@ export class NetworkMethods {
 			token,
 			new HttpCall()
 				.set_postfix_uri('api/teamsAndPubTeamMembers/allby/eventid/' + eid)
+				.set_service(Service.Api)
+				.set_success_msg('Found :count teams'),
+			undefined,
+			'get',
+		);
+	}
+
+	/**
+	 * Fetch teamname and teammembers by eventid (teammembers contains
+	 * position info).
+	 * @param relogin
+	 * @param network
+	 * @param token
+	 * @param eid
+	 */
+	public static promisifyGetTeamnameAndPubEventTeammembersByEventId(relogin: ReloginInfo, network: INetwork, token: string,
+	                                                                  eid: number,
+	): Promise<ServerResponse<TeamMetaAndPubEventTeamMember[]  | NoResultsResponse>> {
+		return network.start(
+			relogin,
+			token,
+			new HttpCall()
+				.set_postfix_uri('api/metaTeamsAndPubTeamMembers/allby/eventid/' + eid)
 				.set_service(Service.Api)
 				.set_success_msg('Found :count teams'),
 			undefined,
