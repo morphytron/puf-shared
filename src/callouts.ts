@@ -1160,14 +1160,36 @@ export class NetworkMethods {
 	 * @param token
 	 * @param eid
 	 */
-	public static promisifyGetTeamnameAndTeammembersByEventId(relogin: ReloginInfo, network: INetwork, token: string,
-	                                                          eid: number,
+	public static promisifyGetTeamnameAndPubEventTeammembersByEventId(relogin: ReloginInfo, network: INetwork, token: string,
+	                                                                  eid: number,
 	): Promise<ServerResponse<TeamAndPubEventTeamMember[]  | NoResultsResponse>> {
 		return network.start(
 			relogin,
 			token,
 			new HttpCall()
 				.set_postfix_uri('api/teamsAndPubTeamMembers/allby/eventid/' + eid)
+				.set_service(Service.Api)
+				.set_success_msg('Found :count teams'),
+			undefined,
+			'get',
+		);
+	}
+
+	/**
+	 * Return the team and team members by event id.
+	 * @param relogin
+	 * @param network
+	 * @param token
+	 * @param eid
+	 */
+	public static promisifyGetTeamAndTeamMembersByEventId(relogin: ReloginInfo, network: INetwork, token: string,
+	                                                          eid: number,
+	): Promise<ServerResponse<TeamAndMembers[]  | NoResultsResponse>> {
+		return network.start(
+			relogin,
+			token,
+			new HttpCall()
+				.set_postfix_uri('api/teamsAndTeamMembers/allby/eventid/' + eid)
 				.set_service(Service.Api)
 				.set_success_msg('Found :count teams'),
 			undefined,
