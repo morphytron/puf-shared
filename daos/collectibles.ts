@@ -4,7 +4,7 @@ import {
     PufPubEventTeamMember,
     Sport,
     SportPosition,
-    SportRules, TeamMetaAndPubEventTeamMember, TeamMember,
+    SportRules, TeamMetaAndPubEventTeamMember, TeamMember, Team,
 } from '../definitions/schema';
 import { MetaListEntry, TeamAndMembers } from '../definitions/responses';
 
@@ -22,10 +22,8 @@ export class PrimeMapperSportPosition extends CollectablePM<SportPosition> {
 
 export type PMTeamAndPubEventTeamMember = {
     members: PrimeMapperPublicEventTeamMember[],
-    id: number;
-    eventid: number;
-    name: string;
-}
+    team: Team
+};
 
 
 export class PrimeMapperTeamMember extends CollectablePM<TeamMember> {
