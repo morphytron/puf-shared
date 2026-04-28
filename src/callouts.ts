@@ -1183,8 +1183,8 @@ export class NetworkMethods {
 	 * @param token
 	 * @param eid
 	 */
-	public static promisifyGetTeamnameAndPubEventTeammembersByEventId(relogin: ReloginInfo, network: INetwork, token: string,
-	                                                                  eid: number,
+	public static promisifyGetMetaTeamsAndPubEventTeammembersByEventId(relogin: ReloginInfo, network: INetwork, token: string,
+	                                                                   eid: number,
 	): Promise<ServerResponse<TeamMetaAndPubEventTeamMember[]  | NoResultsResponse>> {
 		return network.start(
 			relogin,
@@ -1205,8 +1205,8 @@ export class NetworkMethods {
 	 * @param token
 	 * @param eid
 	 */
-	public static promisifyGetTeamAndTeamMembersByEventId(relogin: ReloginInfo, network: INetwork, token: string,
-	                                                          eid: number,
+	public static promisifyGetTeamsAndTeamMembersByEventId(relogin: ReloginInfo, network: INetwork, token: string,
+	                                                       eid: number,
 	): Promise<ServerResponse<TeamAndMembers[]  | NoResultsResponse>> {
 		return network.start(
 			relogin,
@@ -1228,7 +1228,7 @@ export class NetworkMethods {
 	 * @param token
 	 * @param tid
 	 */
-	public static promisifyGetPubTeamBembersByTeamId(relogin: ReloginInfo, network: INetwork, token: string,
+	public static promisifyGetPubTeamMembersByTeamId(relogin: ReloginInfo, network: INetwork, token: string,
 	                                                          tid: number,
 	): Promise<ServerResponse<PufPubEventTeamMember[] | NoResultsResponse>> {
 		return network.start(
@@ -1243,14 +1243,30 @@ export class NetworkMethods {
 		);
 	}
 
-	public static promisifyGetPublicEventTeamMembersByTeamId(relogin: ReloginInfo, network: INetwork, token: string,
-	                                                         tid: number)
-		: Promise<ServerResponse<TeamAndMembers[] | NoResultsResponse>> {
+	public static promisifyGetTeamAndTeamMembersByTeamId(relogin: ReloginInfo, network: INetwork, token: string,
+	                                                     tid: number)
+		: Promise<ServerResponse<TeamAndMembers | NoResultsResponse>> {
 		return network.start(
 			relogin,
 			token,
 			new HttpCall()
 				.set_postfix_uri('api/teamAndMembers/teamid/' + tid)
+				.set_service(Service.Api)
+				.set_no_messages(true),
+			undefined,
+			'get',
+		);
+	}
+
+
+	public static promisifyGetTeamAndPublicEventTeamMembersByTeamId(relogin: ReloginInfo, network: INetwork, token: string,
+	                                                     tid: number)
+		: Promise<ServerResponse<TeamAndPubEventTeamMember | NoResultsResponse>> {
+		return network.start(
+			relogin,
+			token,
+			new HttpCall()
+				.set_postfix_uri('api/teamAndPubTeamMembers/teamid/' + tid)
 				.set_service(Service.Api)
 				.set_no_messages(true),
 			undefined,
