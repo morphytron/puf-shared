@@ -54,10 +54,10 @@ export class PrimeMapperTeamAndMembers extends CollectablePM<TeamAndMembers>  {
 
 export class PrimeMapperPublicTeamAndEventTeamMember extends CollectablePM<PMTeamAndPubEventTeamMember> {
     get key() : number {
-        return this.ref.id;
+        return this.ref.team.id;
     }
     get title(): string {
-        return this.ref.name;
+        return this.ref.team.name;
     }
 
     constructor(teamAndPubEventTeamMember: PMTeamAndPubEventTeamMember) {
