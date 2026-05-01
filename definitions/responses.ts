@@ -301,7 +301,7 @@ export type EntryResponse = {
     allTeams: TeamAndMembers[];
     teamMember: TeamMember;
     sportPosition: SportPosition;
-    event: PufEvent & EventStatisticss;
+    event: PufEvent & EventStatistics;
     facility : Facility;
     playableLocation : PlayableLocation;
 }
