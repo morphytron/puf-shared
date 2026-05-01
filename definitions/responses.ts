@@ -301,21 +301,24 @@ export type EntryResponse = {
     allTeams: TeamAndMembers[];
     teamMember: TeamMember;
     sportPosition: SportPosition;
-    event: PufEvent & {
-        eventStatistics: {
-            players: number;
-            teams: number;
-            trainers: number;
-            coaches: number;
-            referees: number;
-            instructors: number;
-            runners: number;
-            min_percentage_of_players_checked_in_to_start: number;
-        }
-    };
+    event: PufEvent & EventStatisticss;
     facility : Facility;
     playableLocation : PlayableLocation;
 }
+
+
+ export type EventStatistics = {
+     eventStatistics: {
+         players: number;
+         teams: number;
+         trainers: number;
+         coaches: number;
+         referees: number;
+         instructors: number;
+         runners: number;
+         min_percentage_of_players_checked_in_to_start: number;
+     }
+ };
 
 export type TeamAndMembers = {
     members: TeamMember[];
