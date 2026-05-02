@@ -1,5 +1,6 @@
 {
   "JOIN_QUICKMATCH_l" : "Join a Quickmatch",
-  "ACCOUNT_l" : "Account",
-  "LOGOUT_l": "Log out"
+  "ACCOUNT_l" : "My account",
+  "LOGOUT_l": "Log out",
+  "USER_EVENTS_l": "My events"
 }
