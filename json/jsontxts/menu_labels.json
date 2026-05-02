@@ -2,5 +2,6 @@
   "JOIN_QUICKMATCH_l" : "Join a Quickmatch",
   "ACCOUNT_l" : "My account",
   "LOGOUT_l": "Log out",
-  "USER_EVENTS_l": "My events"
+  "USER_EVENTS_l": "My events",
+  "ML_REVIEW_l": "ML support"
 }
