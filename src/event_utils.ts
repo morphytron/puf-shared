@@ -30,7 +30,7 @@ export const convertUserEventToEventAndEventMemberIds = (ue: UserEvent): EventAn
 		rulesid: ue.rulesid,
 		sportid: ue.sportid,
 		sportname: ue.sportname,
-		status: ue.estatus,
+		status: ue.estatus as EventStatus,
 		timeends: ue.timeends,
 		timefinished: ue.timefinished,
 		timestarts: ue.timestarts

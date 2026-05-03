@@ -411,6 +411,8 @@ export type UserSportParticipationStats = {
     rules_percentage: number;
 }
 
+export type EventStatus = 'CREATED' | 'PENDING' | 'FINALIZED' | 'STARTED' | 'ABORTED' | 'ENDED';
+
 export type SuggestedEvent = {
     id: number;
     runbyuid: number | null;
@@ -483,7 +485,7 @@ export type PufEvent = {
     addedbyuid: number;
     lastchangedon: string;
     facilityid: null | number;
-    status : 'CREATED' | 'PENDING' | 'FINALIZED' | 'STARTED' | 'ABORTED' | 'ENDED';
+    status : EventStatus;
     sportid: number;
     timeends: null | string;
     timefinished: null | string;
@@ -504,7 +506,7 @@ export type UserEvent = {
     equipment: string;
     defaultlocationlat: string;
     defaultlocationlon: string;
-    estatus: string;
+    estatus: EventStatus;
     pstatus : string;
     duration_in_seconds: number;
     timestarts: null | string;
