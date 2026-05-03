@@ -1,8 +1,41 @@
 import { FacilityEvents } from '../definitions/responses';
-import { SportRules } from '../definitions/schema';
+import {
+	EventAndEventMemberIds,
+	SportRules,
+	UserEvent,
+} from '../definitions/schema';
 import { RuleSetUtil } from './collectable_utils';
 import { strict_test_map_is_valid } from './prime_mapper';
 import { PrimeMappingStatus } from '../definitions/generic';
+
+
+export const convertUserEventToEventAndEventMemberIds = (ue: UserEvent): EventAndEventMemberIds => {
+	const uids : number[] = [];
+	const uids_and_teams : string[] = ue.eventuidsandteamids.split(";");
+	uids_and_teams.forEach(uidtids => {
+		const [ uid, teamid ] = uidtids.split(",");
+		uids.push(Number(uid));
+	});
+	return {
+		addedbyuid: ue.addedbyuid,
+		age_group: ue.age_group,
+		coed_or_gender: ue.coed_or_gender,
+		dt_created: ue.dt_created,
+		event_member_ids: uids,
+		facilityid: ue.facilityid,
+		id: ue.id,
+		is_quickmatch: ue.is_quickmatch,
+		lastchangedon: ue.lastchangedon,
+		placeid: ue.placeid,
+		rulesid: ue.rulesid,
+		sportid: ue.sportid,
+		sportname: ue.sportname,
+		status: ue.estatus,
+		timeends: ue.timeends,
+		timefinished: ue.timefinished,
+		timestarts: ue.timestarts
+	}
+}
 
 export enum UserOperability {
 	USER_CAN_CREATE_EVENT_ONLY,

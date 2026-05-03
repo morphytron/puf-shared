@@ -510,6 +510,8 @@ export type UserEvent = {
     timestarts: null | string;
     timeends : null | string;
     timefinished: null | string;
+    facilityid: number;
+    placeid: number;
     timezone_minute_offset: number;
     is_quickmatch: boolean;
     sportid: number;
