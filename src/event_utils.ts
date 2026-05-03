@@ -1,6 +1,6 @@
 import { FacilityEvents } from '../definitions/responses';
 import {
-	EventAndEventMemberIds,
+	EventAndEventMemberIds, EventStatus,
 	SportRules,
 	UserEvent,
 } from '../definitions/schema';

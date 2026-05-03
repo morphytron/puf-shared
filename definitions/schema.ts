@@ -306,7 +306,7 @@ export type Facility = {
     totalratings: number;
     voteups: number;
     votedowns: number;
-    unusableuntil: number;
+    unusableuntil: string;
     surface: string;
     a_type: string;
     totalsize: number;
