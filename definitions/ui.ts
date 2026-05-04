@@ -366,3 +366,10 @@ export type PositionInfo = {
 	min_per_event?: number;
 	max_per_event?: number;
 }
+
+
+export type PlFacilEvent = {
+	place: PlayableLocation;
+	facility: Facility;
+	events: EventAndEventMemberIds[];
+};
