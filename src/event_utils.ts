@@ -87,7 +87,7 @@ export const get_overlap_groups =  (tempArray: {start: number, end: number, id? 
 			for (let b = a + 1; b + a < group.length; b += 2) {
 				const b_ = group[b];
 				if (!(b_.start <= reference_point_a  && reference_point_a <= b_.end)) {
-					partial_group.push({start: reference_point_a, id: a_.id, end: });
+					partial_group.push({start: reference_point_a, id: a_.id, end: b_.end});
 				}
 			}
 		}
@@ -95,7 +95,7 @@ export const get_overlap_groups =  (tempArray: {start: number, end: number, id? 
 	return {allOverlaps, groups};
 }
 
-export const
+//export const
 
 export const overlaps = (a: { start: number, end: number }, b: {
 	start: number,
