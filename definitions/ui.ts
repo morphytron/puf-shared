@@ -1,5 +1,7 @@
 // player user stats
 import {
+	EventAndEventMemberIds,
+	Facility, PlayableLocation,
 	PlayerStats, Team,
 	TeamMetaAndPubEventTeamMember,
 	UserSportParticipationStats,
@@ -368,8 +370,8 @@ export type PositionInfo = {
 }
 
 
-export type PlFacilEvent = {
+export type PlFacilsEvents = {
 	place: PlayableLocation;
-	facility: Facility;
+	facility: Facility[];
 	events: EventAndEventMemberIds[];
 };
