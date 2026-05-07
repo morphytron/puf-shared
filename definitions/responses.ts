@@ -11,8 +11,8 @@ import {
     SportRules,
     Team,
     TeamMember,
-    User
-} from "./schema";
+    User, UserEvent,
+} from './schema';
 import { Verification} from "./requests";
 
 
@@ -90,7 +90,11 @@ export type JavaMessageWithData<T> = JavaMessageWithoutData & {
     data : T;
 };
 
-
+export type UserEventResponse = {
+    events : UserEvent[];
+    facilities: {[key: string] : Facility},
+    places: {[key : string]:  PlayableLocation}
+}
 
 export abstract class ApiMessageResponseA {
     message: string;

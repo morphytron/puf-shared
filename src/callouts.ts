@@ -1,4 +1,5 @@
 import {
+	ApiMessageResponse,
 	AvailablePositions,
 	EntryResponse,
 	JavaMessage,
@@ -15,7 +16,7 @@ import {
 	ServerStatistics,
 	SessionResponse,
 	SubscriptionWrapper, TeamAndMembers,
-	UserAndAccount,
+	UserAndAccount, UserEventResponse,
 } from '../definitions/responses';
 import { HttpCall, INetwork, ReloginInfo, Service } from './network';
 import {
@@ -1081,6 +1082,24 @@ export class NetworkMethods {
 			.set_postfix_uri('api/puf_suggested_events/search/location/paged');
 		return network.start(
 			relogin, token, httpCall, JSON.stringify(req), 'POST', false);
+	}
+
+	public static promisifyUserEvents(relogin: ReloginInfo, network: INetwork, token: string, uid: number, queryInfo: QueryInfo) : Promise<ServerResponse<NoResultsResponse | UserEventResponse>> {
+		const httpCall = new HttpCall()
+			.set_success_msg('Found :count events.')
+			.set_no_messages(false)
+			.set_service(Service.Api)
+			.set_postfix_uri('api/user_events/layers/all');
+		const body = new Query('puf_user_events')
+			.set_query_info(queryInfo);
+		return network.start(
+			relogin,
+			token,
+			httpCall,
+			JSON.stringify(body),
+			'POST',
+			false,
+		);
 	}
 
 	public static promisifyPublicUserEvents(relogin: ReloginInfo, network: INetwork, token: string,
