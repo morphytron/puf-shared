@@ -9,7 +9,7 @@ import {
 	NoResultsResponse,
 	OAuthResponse,
 	OAuthResponsePart1,
-	Pageable,
+	Pageable, PageInfo,
 	Provider,
 	QmQServerEvent,
 	ServerResponse,
@@ -22,7 +22,7 @@ import { HttpCall, INetwork, ReloginInfo, Service } from './network';
 import {
 	CrudType,
 	DeleteEventsBatchOptions,
-	FilterableAtlasRequest,
+	FilterableAtlasRequest, FilterableUserEventRequest,
 	FilterLocationRequest,
 	ForumLookup,
 	LocationRequest,
@@ -1084,19 +1084,16 @@ export class NetworkMethods {
 			relogin, token, httpCall, JSON.stringify(req), 'POST', false);
 	}
 
-	public static promisifyUserEvents(relogin: ReloginInfo, network: INetwork, token: string, uid: number, queryInfo: QueryInfo) : Promise<ServerResponse<NoResultsResponse | UserEventResponse>> {
+	public static promisifyUserEvents(relogin: ReloginInfo, network: INetwork, token: string, userEventFilterRequest: FilterableUserEventRequest) : Promise<ServerResponse<NoResultsResponse | UserEventResponse>> {
 		const httpCall = new HttpCall()
-			.set_success_msg('Found :count events.')
 			.set_no_messages(false)
 			.set_service(Service.Api)
 			.set_postfix_uri('api/user_events/layers/all');
-		const body = new Query('puf_user_events')
-			.set_query_info(queryInfo);
 		return network.start(
 			relogin,
 			token,
 			httpCall,
-			JSON.stringify(body),
+			JSON.stringify(userEventFilterRequest),
 			'POST',
 			false,
 		);

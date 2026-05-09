@@ -1,5 +1,6 @@
 import {PriceMeta} from "./stripe";
 import {Query, QueryInfo} from "../src/querying";
+import { PageInfo } from './responses';
 
 export type ForumLookup = {
     badgesdetermined: boolean;
@@ -48,6 +49,11 @@ export type LocationRequest = {
     radius: number;
     lat: number;
     long: number;
+}
+export type FilterableUserEventRequest = {
+    dateRange?: DateRange;
+    uid: number;
+    page_info: PageInfo;
 }
 export type DateRange = {
     start: string | Date; // uses datetime utc
