@@ -87,12 +87,35 @@ export class NetworkMethods {
 		);
 	}
 
+	/**
+	 * Typical response, if successful at retrieving information, is in the
+	 * following format:
+	 * {
+	 * 	"messages": [
+	 * 		{
+	 * 			"message": "userIsNotInQueue"
+	 * 		}
+	 * 	]
+	 * }
+	 * or
+	 * {
+	 * 	"messages": [
+	 * 		{
+	 * 			"message": "userIsInQueue"
+	 * 		}
+	 * 	]
+	 * }
+	 * @param relogin
+	 * @param network
+	 * @param token
+	 * @param uid
+	 */
 	public static promisifyIsInQm(
 		relogin: ReloginInfo,
 		network: INetwork,
 		token: string,
 		uid: number,
-	): Promise<ServerResponse<JavaMessage>> {
+	): Promise<ServerResponse<JavaMessageWrapper>> {
 		return network.start(
 			relogin,
 			token,
