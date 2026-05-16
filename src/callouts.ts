@@ -180,7 +180,7 @@ export class NetworkMethods {
 				lat: lat,
 				lng: lng,
 			}),
-			'post',
+			'patch',
 		);
 	}
 
