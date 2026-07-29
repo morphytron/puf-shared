@@ -5,7 +5,7 @@ import {
 	JavaMessage,
 	JavaMessageWrapper,
 	MapDetails,
-	MetaList,
+	MetaList, NewUserResponse,
 	NoResultsResponse,
 	OAuthResponse,
 	OAuthResponsePart1,
@@ -49,13 +49,13 @@ import {
 	SportPosition,
 	SportRules,
 	SuggestedEvent,
-	TeamMetaAndPubEventTeamMember, TeamMember,
+	TeamMetaAndPubEventTeamMembers, TeamMember,
 	User,
 	UserBadge,
 	UserEvent,
 	UserSportParticipationStats,
 	Vote,
-	VoteSessionVotesEventMembers, TeamAndPubEventTeamMember,
+	VoteSessionVotesEventMembers, TeamAndPubEventTeamMembers,
 } from '../definitions/schema';
 import { Notification } from './notifications';
 import { Query, QueryInfo } from './querying';
@@ -566,7 +566,7 @@ export class NetworkMethods {
 			JSON.stringify(oauth), 'POST');
 	}
 
-	public static promisifyNewUser(relogin: ReloginInfo, network: INetwork, token: string, user: User): Promise<ServerResponse<NoResultsResponse>> {
+	public static promisifyNewUser(relogin: ReloginInfo, network: INetwork, token: string, user: User): Promise<ServerResponse<NoResultsResponse | NewUserResponse>> {
 		return network.start(
 			relogin,
 			token,
@@ -1201,7 +1201,7 @@ export class NetworkMethods {
 	 */
 	public static promisifyGetTeamsAndPubEventTeammembersByEventId(relogin: ReloginInfo, network: INetwork, token: string,
 	                                                                  eid: number,
-	): Promise<ServerResponse<TeamAndPubEventTeamMember[]  | NoResultsResponse>> {
+	): Promise<ServerResponse<TeamAndPubEventTeamMembers[]  | NoResultsResponse>> {
 		return network.start(
 			relogin,
 			token,
@@ -1224,7 +1224,7 @@ export class NetworkMethods {
 	 */
 	public static promisifyGetMetaTeamsAndPubEventTeammembersByEventId(relogin: ReloginInfo, network: INetwork, token: string,
 	                                                                   eid: number,
-	): Promise<ServerResponse<TeamMetaAndPubEventTeamMember[]  | NoResultsResponse>> {
+	): Promise<ServerResponse<TeamMetaAndPubEventTeamMembers[]  | NoResultsResponse>> {
 		return network.start(
 			relogin,
 			token,
@@ -1300,7 +1300,7 @@ export class NetworkMethods {
 
 	public static promisifyGetTeamAndPublicEventTeamMembersByTeamId(relogin: ReloginInfo, network: INetwork, token: string,
 	                                                     tid: number)
-		: Promise<ServerResponse<TeamAndPubEventTeamMember | NoResultsResponse>> {
+		: Promise<ServerResponse<TeamAndPubEventTeamMembers | NoResultsResponse>> {
 		return network.start(
 			relogin,
 			token,

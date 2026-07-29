@@ -4,7 +4,7 @@ import {
     PufPubEventTeamMember,
     Sport,
     SportPosition,
-    SportRules, TeamMetaAndPubEventTeamMember, TeamMember, Team,
+    SportRules, TeamMetaAndPubEventTeamMembers, TeamMember, Team,
 } from '../definitions/schema';
 import { MetaListEntry, TeamAndMembers } from '../definitions/responses';
 

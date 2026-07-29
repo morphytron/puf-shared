@@ -10,12 +10,12 @@ export type RecurseNodeOptions = {
  * Field, void or any.  If it is not of
  * type Field, then it is appended to the form unless flag: skip_append =
  * true.  If it is of type any, and this flag is false, it will
- * destroy the Form
+ * destroy the form
  * object. If the funciton returns void, then nothing is added or appended
- * to the Form object, automatically.  Some flags are possible:
+ * to the form object, automatically.  Some flags are possible:
  * skip_append = true: will simply run the function in place and skip
- * appending the return object to the Form object.
- * Returns a new copy of the Form object.
+ * appending the return object to the form object.
+ * Returns a new copy of the form object.
  * @param form
  * @param f
  */

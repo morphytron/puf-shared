@@ -1,7 +1,3 @@
-import { Collectable } from '../src/collectable_utils';
-import { getBindingIdentifiers } from '@babel/types';
-import keys = getBindingIdentifiers.keys;
-
 export type Invite = {
     tablekey: number;
     tablename: string;
@@ -104,8 +100,46 @@ export type Account = {
     roles: string;
 };
 
+// profilemeta
+
+export enum SelfProclaimedProfessionalism  {
+    Never = -1,
+    Beginner, Intermediate, Advanced, SemiProfessional
+}
+
+export function getSelfProclaimedProfessionalismText(num? : SelfProclaimedProfessionalism) {
+    let txt;
+    switch (num) {
+        case SelfProclaimedProfessionalism.Beginner: {
+            txt = "Beginner";
+            break;
+        }
+        case SelfProclaimedProfessionalism.Intermediate: {
+            txt = "Intermediate";
+            break;
+        }
+        case SelfProclaimedProfessionalism.Advanced: {
+            txt = "Advanced";
+            break;
+        }
+        case SelfProclaimedProfessionalism.SemiProfessional: {
+            txt = "Semi professional";
+            break;
+        }
+        default: {
+            txt = "Unknown";
+        }
+            return txt;
+    }
+}
+export type ProfileMeta = {
+    sport_positions_by_sport_id: string; // "42:41,37:0,38:63;61;59,43:36"
+    past_external_teams: string;
+    current_external_teams: string;
+};
+
 export type User = {
-    profilemeta: Object;
+    profilemeta: ProfileMeta;
     id: number,
     un: string,
     pw: string,
@@ -362,12 +396,12 @@ export interface PufPubEventTeamMember {
 
 export type Gender = 'f' | 'm';
 
-export type TeamAndPubEventTeamMember = {
+export type TeamAndPubEventTeamMembers = {
     team: Team;
     members: null | PufPubEventTeamMember[];
 }
 
-export interface TeamMetaAndPubEventTeamMember {
+export interface TeamMetaAndPubEventTeamMembers {
     id: number;
     eventid: number;
     name: string;

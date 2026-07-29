@@ -1,7 +1,5 @@
-import { SubRule } from '../definitions/ui';
+import {Entry, SubRule} from '../definitions/ui';
 import { HashUtil } from './hash_util';
-import { getBindingIdentifiers } from '@babel/types';
-import keys = getBindingIdentifiers.keys;
 import { Facility, SportPosition, SportRules } from '../definitions/schema';
 
 export interface Labelable {
@@ -32,6 +30,13 @@ export class RuleSetUtil {
             val.set(key,  v);
         });
         console.debug('getNumberToNumberMapFromResponse:', val);
+        return val;
+    }
+    public static getPrimeKeyOrderingMap<T>(entities : Entry<CollectablePM<T>>[]) : Map<number, Entry<CollectablePM<T>>> {
+        const val = new Map();
+        entities.forEach((e) => {
+            val.set(e.id, e);
+        });
         return val;
     }
     public static getRuleSet_SportPositions(s : SportRules) : Map<number, number> {

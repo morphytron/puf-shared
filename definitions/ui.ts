@@ -1,13 +1,16 @@
 // player user stats
-import {
+import
+{
 	EventAndEventMemberIds,
 	Facility, PlayableLocation,
-	PlayerStats, Team,
-	TeamMetaAndPubEventTeamMember,
+	PlayerStats,
+	SelfProclaimedProfessionalism, Sport, SportInterest, SportPosition, Team,
+	TeamMetaAndPubEventTeamMembers,
 	UserSportParticipationStats,
 } from './schema';
 import { HttpCall } from '../src/network';
 import {Collectable, CollectablePM} from '../src/collectable_utils';
+import { CrudType } from './requests';
 
 export const emptyUserPlayerStats = {
 	playerStats: {} as PlayerStats,
@@ -19,8 +22,17 @@ export type FieldWrapper = {
 	field: Field,
 	isdirty: boolean
 }
+//user profile meta
 
-//Form
+
+
+export type SportInterestRequestable = {
+	skillLevel: null | SelfProclaimedProfessionalism ;
+	sportPositionEntries: Entry<SportPosition>[];
+	sportEntries: Entry<Sport>[];
+};
+
+//form
 export type Form_ = {
 	backgroundImgUri?: string;
 	https_call: typeof HttpCall;
@@ -240,7 +252,7 @@ export type SubRule = {
 	entityId: number;
 	ruleValue: number;
 };
-export type TeamWithPubEventTeamMembers = TeamMetaAndPubEventTeamMember & {
+export type TeamWithPubEventTeamMembers = TeamMetaAndPubEventTeamMembers & {
 	team: Team;
 }
 export type OptionalEntryConfig = {
