@@ -26,18 +26,26 @@ export enum S3ResourceType {
 }
 
 export class S3Resource {
-    private static relogin : ReloginInfo | undefined;
-    private static token : string;
-    private static network : INetwork;
+    private static relogin_ : ReloginInfo | undefined;
+    private static token_ : string;
+    private static network_ : INetwork;
+
     public set token(token: string) {
-        S3Resource.token = token;
+        S3Resource.token_ = token;
     }
+
     public set relogin(relogin : ReloginInfo | undefined) {
-        S3Resource.relogin = relogin;
+        S3Resource.relogin_ = relogin;
     }
+
     public set network(network: INetwork) {
-        this.network = network;
+        S3Resource.network_ = network;
     }
+    public get has_client(): boolean {
+        return !!this.client;
+    }
+
+    private type : S3ResourceType;
     private region_ = 'us-east-1';
     private s3Bucket: string;
     private folderPrefix: string = '';
@@ -58,6 +66,27 @@ export class S3Resource {
         return this.folderPrefix;
     }
 
+    public createS3ClientWithSessionIdCredentials() : Promise<void> {
+        let promise = NetworkMethods.promisifyGetS3ClientSessionId(S3Resource.relogin_, S3Resource.network_, S3Resource.token_, this.type).then(r => {
+            if (r.isSuccessful) {
+                let session = r.resp as S3Session;
+                this.client = new S3Client({
+                    region: this.region_,
+                    credentials: {
+                        accessKeyId: session.access_key_id,
+                        secretAccessKey: session.secret_access_key,
+                        sessionToken: session.session_token
+                    }
+                });
+            } else {
+                throw new Error(ApiMessageResponse.fromServerResponse(r).message);
+            }
+        }).catch(err => {
+            console.error(err);
+            throw new Error(err.message);
+        });
+        return promise;
+    }
     /**
      * If network/token are undefined, set the network or token manually after
      * creating
@@ -67,15 +96,18 @@ export class S3Resource {
      * @param network
      * @param token
      */
-    constructor(public readonly resourceType: S3ResourceType, network?: INetwork, token?: string) {
+    constructor(public readonly resourceType: S3ResourceType, network?: INetwork, token?: string, relogin?: ReloginInfo) {
+        this.type = resourceType;
 				if (network) {
-            this.network = network;
+            S3Resource.network_ = network;
         }
         if (token) {
-            this.token = token;
+            S3Resource.token_ = token;
         }
-				this.network = network;
-        const { credentials } = getEnvironment();
+        if (relogin) {
+            S3Resource.relogin_ = relogin;
+        }
+				const { credentials } = getEnvironment();
         switch (resourceType) {
             case S3ResourceType.ProfilePicture: {
                 this.s3Bucket =  isDev() ? 'puf-test-public-resources' : 'puf-prod-public-resources';
@@ -103,25 +135,9 @@ export class S3Resource {
                 region: this.region_,
                 credentials: credentials
             })
-        } else {
-            NetworkMethods.promisifyGetS3ClientSessionId(S3Resource.relogin, S3Resource.network, S3Resource.token, resourceType).then(r => {
-                if (r.isSuccessful) {
-                    let session = r.resp as S3Session;
-                    this.client = new S3Client({
-                        region: this.region_,
-                        credentials: {
-                            accessKeyId: session.access_key_id,
-                            secretAccessKey: session.secret_access_key,
-                            sessionToken: session.session_token
-                        }
-                    });
-                } else {
-                    throw new Error(ApiMessageResponse.fromServerResponse(r).message);
-                }
-            }).catch(err => {
-                console.error(err);
-                throw new Error(err.message);
-            });
+        } else if (S3Resource.network_ && S3Resource.token_) {
+            console.log("Setting s3client with sessionid...");
+            this.createS3ClientWithSessionIdCredentials();
         }
     }
 
