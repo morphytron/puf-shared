@@ -361,7 +361,7 @@ public PrimeMappingStatus test_map_is_valid(Map<Integer,Integer> rule_layout_map
 		AtomicBoolean passesMinTest = new AtomicBoolean(true);
 		AtomicBoolean passesOverlapThresholdTest = new AtomicBoolean(true);
 		HashMap<Integer, PrimeConstraints> all_constraints_by_id = new HashMap<>();
-		//log.debug(String.format("Rule layout map: <%s>", rule_layout_map.toString()));
+		//log.debug(String.format("rule layout map: <%s>", rule_layout_map.toString()));
 		rule_layout_map.forEach((key, val) -> {
 				if (val == 0) {
 						return;  //an invalid entry.  Remove this line once DB is fixed for all layouts.

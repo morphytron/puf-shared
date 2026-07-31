@@ -12,7 +12,11 @@ import {StreamingBlobTypes} from "@smithy/types";
 import { ImageMeta, imageMeta } from 'image-meta';
 import { NetworkMethods } from './callouts';
 import { INetwork, ReloginInfo } from './network';
-import { NoResultsResponse, ServerResponse } from '../definitions/responses';
+import {
+    ApiMessageResponse,
+    NoResultsResponse, S3Session,
+    ServerResponse, SessionResponse,
+} from '../definitions/responses';
 
 export enum S3ResourceType {
     ProfilePicture = "users",
@@ -22,13 +26,23 @@ export enum S3ResourceType {
 }
 
 export class S3Resource {
+    private static relogin : ReloginInfo | undefined;
+    private static token : string;
+    private static network : INetwork;
+    public set token(token: string) {
+        S3Resource.token = token;
+    }
+    public set relogin(relogin : ReloginInfo | undefined) {
+        S3Resource.relogin = relogin;
+    }
+    public set network(network: INetwork) {
+        this.network = network;
+    }
     private region_ = 'us-east-1';
     private s3Bucket: string;
     private folderPrefix: string = '';
     private supportsACL = false;
     private client: S3Client;
-		private network : INetwork;
-		private token : string;
 
     public set toRegion(region: string) {
         this.region_ = region;
@@ -43,8 +57,23 @@ export class S3Resource {
     public get folderPrfx() : string {
         return this.folderPrefix;
     }
-    constructor(public readonly resourceType: S3ResourceType, network: INetwork, token: string) {
-				this.token = token;
+
+    /**
+     * If network/token are undefined, set the network or token manually after
+     * creating
+     * S3Resource instance.
+     * Once an instance has set it, not necessary to set it again.
+     * @param resourceType
+     * @param network
+     * @param token
+     */
+    constructor(public readonly resourceType: S3ResourceType, network?: INetwork, token?: string) {
+				if (network) {
+            this.network = network;
+        }
+        if (token) {
+            this.token = token;
+        }
 				this.network = network;
         const { credentials } = getEnvironment();
         switch (resourceType) {
@@ -69,10 +98,28 @@ export class S3Resource {
                 break;
             }
         }
-        this.client = new S3Client({
-            region: this.region_,
-            credentials: credentials
-        })
+        if (credentials.secretAccessKey && credentials.accessKeyId) {
+            this.client = new S3Client({
+                region: this.region_,
+                credentials: credentials
+            })
+        } else {
+            NetworkMethods.promisifyGetS3ClientSessionId(S3Resource.relogin, S3Resource.network, S3Resource.token, resourceType).then(r => {
+                if (r.isSuccessful) {
+                    let session = r.resp as S3Session;
+                    this.client = new S3Client({
+                        region: this.region_,
+                        credentials: {
+                            accessKeyId: session.access_key_id,
+                            secretAccessKey: session.secret_access_key,
+                            sessionToken: session.session_token
+                        }
+                    })
+                } else {
+                    throw new Error(ApiMessageResponse.fromServerResponse(r).message);
+                }
+            });
+        }
     }
 
 

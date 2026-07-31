@@ -105,11 +105,21 @@ export type UserEventResponse = {
     places: {[key : string]:  PlayableLocation}
 }
 
+
+
+/**
+ * Utilize ApiMessageResponse class to correctly log response.
+ */
 export abstract class ApiMessageResponseA {
     message: string;
     code: number;
     wasError: boolean;
 }
+
+/**
+ * Utilize ApiMessageResponse class to correctly log response.
+ */
+export type NoResultsResponse = ApiMessageResponseA;
 
 export class ApiMessageResponse extends ApiMessageResponseA {
     public debugLog() : string {
@@ -127,8 +137,6 @@ export class ApiMessageResponse extends ApiMessageResponseA {
         return r;
     }
 }
-
-export type NoResultsResponse = typeof ApiMessageResponse;
 
 export type ServerStatistics = {
     [s in ServerStatusStatistic]: number;
