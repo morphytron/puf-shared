@@ -15,6 +15,15 @@ import {
 } from './schema';
 import { Verification} from "./requests";
 
+/**
+ * For acquiring s3 images / multimedia.
+ */
+export type S3Session = {
+    access_key_id : string,
+    secret_access_key: string,
+    session_token: string,
+    expiration: string,
+}
 
 export type MetaList = {
     entries : MetaListEntry[];

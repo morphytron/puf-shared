@@ -11,7 +11,7 @@ import {
 	OAuthResponsePart1,
 	Pageable, PageInfo,
 	Provider,
-	QmQServerEvent,
+	QmQServerEvent, S3Session,
 	ServerResponse,
 	ServerStatistics,
 	SessionResponse,
@@ -345,6 +345,12 @@ export class NetworkMethods {
 	}
 
 	// API calls
+
+	public static promisifyGetS3ClientSessionId(relogin: ReloginInfo, network: INetwork, token: string, type_ : S3ResourceType): Promise<ServerResponse<S3Session | NoResultsResponse>> {
+		return network.start(relogin, token, new HttpCall()
+			.set_service(Service.Api).set_no_messages(true).set_postfix_uri(`api/resource/s3/type/${type_.toString()}`),
+			undefined, 'get');
+	}
 	public static promisifyPutS3ImageObj(relogin: ReloginInfo, token: string,
 	                                     type_: S3ResourceType, pk: number,
 	                                     bytes: Uint8Array<ArrayBuffer>, mime: string): Promise<ServerResponse<NoResultsResponse>> {
