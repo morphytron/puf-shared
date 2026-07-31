@@ -114,10 +114,13 @@ export class S3Resource {
                             secretAccessKey: session.secret_access_key,
                             sessionToken: session.session_token
                         }
-                    })
+                    });
                 } else {
                     throw new Error(ApiMessageResponse.fromServerResponse(r).message);
                 }
+            }).catch(err => {
+                console.error(err);
+                throw new Error(err.message);
             });
         }
     }
