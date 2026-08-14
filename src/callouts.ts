@@ -346,9 +346,10 @@ export class NetworkMethods {
 
 	// API calls
 
-	public static promisifyGetCommentsAllLayersByDepth(relogin: ReloginInfo, network: INetwork, token: string, depth: number, query: Query): Promise<ServerResponse<NoResultsResponse | PageableCommentWrapper>> {
+	public static promisifyGetCommentsLayersByDepth(relogin: ReloginInfo, network: INetwork, token: string, public_only: boolean, depth: number, query: Query): Promise<ServerResponse<NoResultsResponse | PageableCommentWrapper>> {
+		let str = public_only ? 'public' : 'all';
 		return network.start(relogin, token, new HttpCall()
-			.set_service(Service.Api).set_no_messages(true).set_postfix_uri(`api/comments/layers/all/depth/${depth}`),
+			.set_service(Service.Api).set_no_messages(true).set_postfix_uri(`api/comments/layers/${str}/depth/${depth}`),
 			query.stringify(), 'post');
 	}
 	public static promisifyGetS3ClientSessionId(relogin: ReloginInfo, network: INetwork, token: string, type_ : S3ResourceType): Promise<ServerResponse<S3Session | NoResultsResponse>> {
