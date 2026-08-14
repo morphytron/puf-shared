@@ -709,3 +709,32 @@ export interface FacilityMLReview {
 	cropped_satellite_img_filename: string;
 	dt_last_updated: null | string;
 }
+
+export type Comment = {
+    id: number;
+    posted_by_uid: number;
+    eventid?: null | number;
+    reply_to?: null | number;
+    teamid?: null | number;
+    team_member_id?: null | number;
+    event_user_id?: null | number;
+    qmq_id?: null | number;
+    media_url?: null | string;
+    mime?: null | string;
+    media_type?: null | string;
+    sharable_url?: null | string;
+    publicized: boolean;
+    comment: string;
+    dt_created: string;
+    dt_update?: null | string;
+};
+
+export type Emoji = {
+    id: number;
+    commentid?: number | null;
+    social_message?: null | string; // uuid
+    emoji_by_uid: number;
+    emoji: string;
+    dt_created: string;
+    dt_update?: null | string;
+}

@@ -9,7 +9,7 @@ import {
 	NoResultsResponse,
 	OAuthResponse,
 	OAuthResponsePart1,
-	Pageable, PageInfo,
+	Pageable, PageableCommentWrapper, PageInfo,
 	Provider,
 	QmQServerEvent, S3Session,
 	ServerResponse,
@@ -346,6 +346,11 @@ export class NetworkMethods {
 
 	// API calls
 
+	public static promisifyGetCommentsAllLayersByDepth(relogin: ReloginInfo, network: INetwork, token: string, depth: number, query: Query): Promise<ServerResponse<NoResultsResponse | PageableCommentWrapper>> {
+		return network.start(relogin, token, new HttpCall()
+			.set_service(Service.Api).set_no_messages(true).set_postfix_uri(`api/comments/layers/all/depth/${depth}`),
+			query.stringify(), 'post');
+	}
 	public static promisifyGetS3ClientSessionId(relogin: ReloginInfo, network: INetwork, token: string, type_ : S3ResourceType): Promise<ServerResponse<S3Session | NoResultsResponse>> {
 		return network.start(relogin, token, new HttpCall()
 			.set_service(Service.Api).set_no_messages(true).set_postfix_uri(`api/resource/s3/type/${type_.toString()}`),

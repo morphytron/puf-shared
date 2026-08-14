@@ -70,14 +70,19 @@ export class S3Resource {
         let promise = NetworkMethods.promisifyGetS3ClientSessionId(S3Resource.relogin_, S3Resource.network_, S3Resource.token_, this.type).then(r => {
             if (r.isSuccessful) {
                 let session = r.resp as S3Session;
-                this.client = new S3Client({
-                    region: this.region_,
-                    credentials: {
-                        accessKeyId: session.access_key_id,
-                        secretAccessKey: session.secret_access_key,
-                        sessionToken: session.session_token
-                    }
-                });
+                try {
+                    this.client = new S3Client({
+                        region: this.region_,
+                        credentials: {
+                            accessKeyId: session.access_key_id,
+                            secretAccessKey: session.secret_access_key,
+                            sessionToken: session.session_token
+                        }
+                    });
+                } catch (e) {
+                    console.error(e);
+                    throw new Error(e.message);
+                }
             } else {
                 throw new Error(ApiMessageResponse.fromServerResponse(r).message);
             }

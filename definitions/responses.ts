@@ -1,10 +1,10 @@
 import {ProductAndPrices} from "./stripe";
 import {
-    Account,
+    Account, Emoji,
     EventAndEventMemberIds,
     EventUserMember,
     Facility,
-    PlayableLocation,
+    PlayableLocation, PublicUser,
     PufEvent,
     Sport,
     SportPosition,
@@ -359,4 +359,36 @@ export type TeamPositions = {
  */
 export type AvailablePositions = {
     teams: TeamPositions[];
+}
+
+/***
+     #[derive(Serialize, Deserialize, JsonSchema, Debug)]
+    pub struct PageableCommentWrapper {
+        pub messages: HashMap<i32, CommentDetails>,
+        pub tree: Vec<LayerableId>,
+        pub users: HashMap<i32, PublicUser>,
+        pub page_info: Option<PageInfo>
+    }
+
+    #[derive(Serialize, Deserialize, JsonSchema, Debug)]
+    pub struct CommentDetails {
+        pub comment: Comment,
+        pub emojis: Vec<Emoji>,
+        pub replies: Vec<i32>,
+    }
+       */
+export type LayerableId = {
+    id: number;
+    layer: number;
+}
+export type CommentDetails = {
+    comment: Comment,
+    emojis: Emoji[],
+    replies: number[],
+}
+export type PageableCommentWrapper = {
+    messages: {[key in string] : CommentDetails},
+    tree: LayerableId[],
+    users: {[key in  string] :  PublicUser},
+    page_info: PageInfo | null,
 }
