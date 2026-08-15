@@ -73,6 +73,28 @@ export class S3Resource {
         return this.folderPrefix;
     }
 
+    private addReactNativeChecksumFix() {
+        this.client.middlewareStack.add(
+            (next) => async (args) => {
+                const result = await next(args);
+                if (result?.response?.headers) {
+                    const headers = result.response.headers;
+                    for (const key of Object.keys(headers)) {
+                        if (key.toLowerCase().startsWith('x-amz-checksum-')) {
+                            delete headers[key];
+                        }
+                    }
+                }
+                return result;
+            },
+            {
+                step: 'deserialize',
+                priority: 'low',
+                name: 'stripChecksumHeaders',
+            }
+        );
+    }
+
     public createS3ClientWithSessionIdCredentials() : Promise<void> {
         let promise = NetworkMethods.promisifyGetS3ClientSessionId(S3Resource.relogin_, S3Resource.network_, S3Resource.token_, this.type).then(r => {
             if (r.isSuccessful) {
@@ -84,8 +106,11 @@ export class S3Resource {
                             accessKeyId: session.access_key_id,
                             secretAccessKey: session.secret_access_key,
                             sessionToken: session.session_token
-                        }
+                        },
+                        responseChecksumValidation: 'WHEN_REQUIRED',
+                        requestChecksumCalculation: 'WHEN_REQUIRED'
                     });
+                    this.addReactNativeChecksumFix();
                 } catch (e) {
                     console.error(e);
                     throw new Error(e.message);
@@ -145,8 +170,11 @@ export class S3Resource {
         if (credentials.secretAccessKey && credentials.accessKeyId) {
             this.client = new S3Client({
                 region: this.region_,
-                credentials: credentials
+                credentials: credentials,
+                responseChecksumValidation: 'WHEN_REQUIRED',
+                requestChecksumCalculation: 'WHEN_REQUIRED'
             })
+            this.addReactNativeChecksumFix();
         } else if (S3Resource.network_ && S3Resource.token_) {
             console.log("Setting s3client with sessionid...");
             this.createS3ClientWithSessionIdCredentials();
