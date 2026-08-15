@@ -717,7 +717,7 @@ export type Comment = {
     reply_to?: null | number;
     teamid?: null | number;
     team_member_id?: null | number;
-    event_user_id?: null | number;
+    event_member_id?: null | number;
     qmq_id?: null | number;
     media_url?: null | string;
     mime?: null | string;
