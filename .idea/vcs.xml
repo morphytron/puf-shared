@@ -3,8 +3,18 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/../.." vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../../atomhid-builder" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../backend/puf-billing" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../backend/puf-qm" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../rn" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../rweb" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../puf-api" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../puf-env" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../puf-gateway" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../puf-notif" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../puf-pm" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../puf-sql" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../puf-web" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../../struct-to-config" vcs="Git" />
   </component>
 </project>

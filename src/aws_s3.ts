@@ -18,11 +18,18 @@ import {
     ServerResponse, SessionResponse,
 } from '../definitions/responses';
 
+/**
+ *
+ *             "users" => Self::users,
+ *             "teams" => Self::teams,
+ *             "social_feed" => Self::social_feed,
+ */
 export enum S3ResourceType {
-    ProfilePicture = "users",
-    TeamPicture = "teams",
-    MLReviewPicture = "facility_satellite_reviews",
-    PublicResource = "fail", // Not yet implemented.
+    users = "users",
+    teams = "teams",
+    socialFeed = "social_feed",
+    facilitySatelliteReviews = "facility_satellite_reviews",
+    RemoteResources = "fail", // Not yet implemented.
 }
 
 export class S3Resource {
@@ -114,24 +121,24 @@ export class S3Resource {
         }
 				const { credentials } = getEnvironment();
         switch (resourceType) {
-            case S3ResourceType.ProfilePicture: {
+            case S3ResourceType.users: {
                 this.s3Bucket =  isDev() ? 'puf-test-public-resources' : 'puf-prod-public-resources';
                 this.folderPrefix = 'user/';
                 break;
             }
-            case S3ResourceType.PublicResource: {
-                this.s3Bucket = 'puf-remote-resources';
-                this.folderPrefix = '';
+            case S3ResourceType.teams: {
+                this.s3Bucket =  isDev() ? 'puf-test-public-resources' : 'puf-prod-public-resources';
+                this.folderPrefix = 'team/';
                 break;
             }
-            case S3ResourceType.MLReviewPicture: {
+            case S3ResourceType.socialFeed: {
+                this.s3Bucket =  isDev() ? 'puf-test-public-resources' : 'puf-prod-public-resources';
+                this.folderPrefix = 'social/';
+                break;
+            }
+            case S3ResourceType.facilitySatelliteReviews: {
                 this.s3Bucket = 'puf-mobile-satellite-imgs';
                 this.folderPrefix = '';
-                break;
-            }
-            case S3ResourceType.TeamPicture: {
-                this.s3Bucket = isDev() ? 'puf-test-public-resources' : 'puf-prod-public-resources';
-                this.folderPrefix = 'team/';
                 break;
             }
         }
