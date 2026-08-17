@@ -58,7 +58,13 @@ export class Query implements QueryType {
         this.page_info = new QueryInfo(last_val, rows_per_page, false);
         return this;
     }
-    set_connectors(customquery : string[][]) : Query {
+    set connectors(customquery : string[][])  {
+        this.operator_connectors = customquery;
+    }
+    get connectors() : string[][] {
+        return this.operator_connectors;
+    }
+    add_connectors(customquery : string[][]) : Query {
         customquery.forEach(c => {
             this.add_connector(c);
         });

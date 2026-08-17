@@ -506,7 +506,7 @@ export class NetworkMethods {
 				.set_postfix_uri(`api/social_messages/search/paged`)
 				.set_service(Service.Api),
 			JSON.stringify(new Query('social_messages').set_query_info(new QueryInfo(offset, limit, false)
-				.addOrderer('time_sent')).set_connectors([
+				.addOrderer('time_sent')).add_connectors([
 				[
 					'(source_id',
 					'=',
@@ -758,7 +758,7 @@ export class NetworkMethods {
 		const query = new Query('puf_bill_to_review');
 		const queryinfo = new QueryInfo(0, 200, true).addOrderer('unreviewedid');
 		query.set_query_info(queryinfo);
-		query.set_connectors([['uid', '=', String(uid)]]);
+		query.add_connectors([['uid', '=', String(uid)]]);
 		return network.start(
 			relogin,
 			token,
@@ -1091,7 +1091,7 @@ export class NetworkMethods {
 	                                       connectors: string[][],
 	): Promise<ServerResponse<Pageable<SuggestedEvent>>> {
 		const req: Query = new Query('puf_suggested_events')
-			.set_connectors([['suggested_uid', '=', `${id}`]].concat(connectors))
+			.add_connectors([['suggested_uid', '=', `${id}`]].concat(connectors))
 			.set_query_info(new QueryInfo(0, 10, false).addOrderer('timestarts DESC').addOrderer('lastchangedon DESC').addOrderer('dt_created'));
 		const httpCall = new HttpCall()
 			.set_success_msg('Found :count suggested events.')
@@ -1107,7 +1107,7 @@ export class NetworkMethods {
 	                                                 id: number, connectors: string[][], location: LocationRequest,
 	): Promise<ServerResponse<Pageable<SuggestedEvent>>> {
 		const req: FilterLocationRequest = new Query('puf_suggested_events')
-			.set_connectors([['suggested_uid', '=', `${id}`]].concat(connectors))
+			.add_connectors([['suggested_uid', '=', `${id}`]].concat(connectors))
 			.set_query_info(new QueryInfo(0, 10, false).addOrderer('timestarts DESC').addOrderer('lastchangedon DESC').addOrderer('dt_created'))
 			.toFilterLocationRequest(location);
 		const httpCall = new HttpCall()
@@ -1144,7 +1144,7 @@ export class NetworkMethods {
 			.set_service(Service.Api)
 			.set_postfix_uri('api/puf_user_events/search/paged');
 		const body = new Query('puf_user_events')
-			.set_connectors([['uid', '=', `${uid}`]].concat(connectors))
+			.add_connectors([['uid', '=', `${uid}`]].concat(connectors))
 			.set_query_info(new QueryInfo(0, 100, false).addOrderer('timestarts DESC').addOrderer('lastchangedon DESC').addOrderer('dt_created'));
 		return network.start(
 			relogin,
@@ -1192,7 +1192,7 @@ export class NetworkMethods {
 			token,
 			httpCall,
 			new Query('puf_user_sport_participation_stats')
-				.set_connectors([['uid', '=', `${id}`]])
+				.add_connectors([['uid', '=', `${id}`]])
 				.set_query_info(
 					new QueryInfo(0, 100, false)
 						.addOrderer('rules_percentage')
@@ -1377,7 +1377,7 @@ export class NetworkMethods {
 			token,
 			httpCall,
 			new Query('puf_player_stats')
-				.set_connectors([['uid', '=', `${id}`]])
+				.add_connectors([['uid', '=', `${id}`]])
 				.set_query_info(new QueryInfo(0, 1, false).addOrderer('uid')).stringify(),
 			'POST',
 			false,
@@ -1416,7 +1416,7 @@ export class NetworkMethods {
 			token,
 			httpCall,
 			new Query('puf_pub_users')
-				.set_connectors([['uid', 'in', `(${idList.join(',')})`]])
+				.add_connectors([['uid', 'in', `(${idList.join(',')})`]])
 				.set_query_info(new QueryInfo(0, 300, isasc).addOrderer(orderon)),
 			'POST',
 			false,
