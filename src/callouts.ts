@@ -35,6 +35,7 @@ import { PaymentMethod, ProductAndPrices } from '../definitions/stripe';
 import {
 	BillToReview,
 	CityTrack,
+	Comment,
 	Facility,
 	FacilityMLReview,
 	Invite,
@@ -384,6 +385,34 @@ export class NetworkMethods {
 			headers: headers,
 			method: 'PUT',
 			body: bytes,
+		}).then(res => {
+			status = res.status;
+			return res.json();
+		}).then(json => {
+			return { isSuccessful: status >= 200 && status < 300, resp: json };
+		});
+	}
+
+	public static promisifyPostS3SocialFeedCommentWithMedia(relogin: ReloginInfo, token: string,
+	                                                        comment: Comment,
+	                                                        media: { uri: string; type: string; name: string }): Promise<ServerResponse<Comment | NoResultsResponse>> {
+		const env = getEnvironment();
+		let status = -1;
+		const headers = new Headers();
+		headers.append('uid', String(relogin.user.id));
+		headers.append('status', relogin.user.status);
+		headers.append('puf-api-key', env.key_puf_api);
+		headers.append('puf-api-gateway-key', env.gateway_api_key);
+		headers.append('authorization', token);
+
+		const form = new FormData();
+		form.append('comment', JSON.stringify(comment));
+		form.append('media', media as unknown as Blob);
+
+		return fetch(env.uri_puf_mobile_server + `api/resource/s3/type/${S3ResourceType.socialFeed.toString()}/comment`, {
+			headers: headers,
+			method: 'POST',
+			body: form,
 		}).then(res => {
 			status = res.status;
 			return res.json();
