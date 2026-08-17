@@ -1012,7 +1012,7 @@ export class NetworkMethods {
 		} else if (crudType === CrudType.Update) {
 			uri = `api/${table_name}/id/${id}`;
 		} else if (crudType === CrudType.Delete) {
-			uri = `api/${table_name}/by/id/${id}`;
+			uri = `api/${table_name}/id/${id}`;
 		} else {
 			uri = `api/${table_name}/one/by/id/${id}`;
 		}
