@@ -551,7 +551,7 @@ export class NetworkMethods {
 				" delete.");
 		}
 		return network.start(relogin,
-			token, new HttpCall().set_no_messages(false).set_service(Service.Api).set_postfix_uri('api/social_messages/one/' + uuid),
+			token, new HttpCall().set_no_messages(false).set_service(Service.Api).set_postfix_uri('api/social_messages/one/uuid/' + uuid),
 			payload ? JSON.stringify(payload) : undefined,
 			meth,
 			true,
