@@ -545,15 +545,15 @@ export class NetworkMethods {
 	 * @param meth
 	 */
 	public static promisifyUDSocialMessage(relogin: ReloginInfo, network: INetwork, token: string,
-																				 uuid: string, payload?: SocialMessage, meth: CrudType) : Promise<ServerResponse<SocialMessage>> {
+																				 uuid: string, payload: SocialMessage | undefined, meth: CrudType) : Promise<ServerResponse<SocialMessage>> {
 		if (meth === CrudType.Read || meth === CrudType.Create) {
 			return Promise.reject("CrudType invalid. Must be one of create or" +
 				" delete.");
 		}
 		return network.start(relogin,
 			token, new HttpCall().set_no_messages(false).set_service(Service.Api).set_postfix_uri('api/social_messages/one/' + uuid),
-			JSON.stringify(payload),
-			CrudType.Update === meth ? 'PUT' : 'DELETE',
+			payload ? JSON.stringify(payload) : undefined,
+			meth,
 			true,
 		);
 	}
