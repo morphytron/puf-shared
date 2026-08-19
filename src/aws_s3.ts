@@ -7,6 +7,7 @@ import {
     PutObjectRequest,
     S3Client
 } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import getEnvironment, {isDev} from "../environment/environment";
 import {StreamingBlobTypes} from "@smithy/types";
 import { ImageMeta, imageMeta } from 'image-meta';
@@ -267,6 +268,23 @@ export class S3Resource {
                 versionId: response.VersionId
             };
         });
+    }
+
+    /**
+     * Generates a presigned GET URL for an object in the S3 bucket.
+     * Useful for streaming media (e.g. video playback) directly from S3
+     * without buffering bytes in memory.
+     *
+     * @param key The key of the object (folder prefix is prepended).
+     * @param expiresInSeconds How long the URL remains valid. Defaults to 1 hour.
+     * @returns A promise that resolves to the presigned URL.
+     */
+    public getPresignedUrl(key: string, expiresInSeconds = 3600): Promise<string> {
+        const cmd: GetObjectRequest = {
+            Bucket: this.s3Bucket,
+            Key: this.folderPrefix + key
+        };
+        return getSignedUrl(this.client, new GetObjectCommand(cmd), { expiresIn: expiresInSeconds });
     }
 
     /**

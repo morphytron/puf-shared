@@ -1,28 +1,33 @@
 import {
-	ApiMessageResponse,
 	AvailablePositions,
 	EntryResponse,
 	JavaMessage,
 	JavaMessageWrapper,
 	MapDetails,
-	MetaList, NewUserResponse,
+	MetaList,
+	NewUserResponse,
 	NoResultsResponse,
 	OAuthResponse,
 	OAuthResponsePart1,
-	Pageable, PageableCommentWrapper, PageInfo,
+	Pageable,
+	PageableCommentWrapper,
 	Provider,
-	QmQServerEvent, S3Session,
+	QmQServerEvent,
+	S3Session,
 	ServerResponse,
 	ServerStatistics,
 	SessionResponse,
-	SubscriptionWrapper, TeamAndMembers,
-	UserAndAccount, UserEventResponse,
+	SubscriptionWrapper,
+	TeamAndMembers,
+	UserAndAccount,
+	UserEventResponse,
 } from '../definitions/responses';
 import { HttpCall, INetwork, ReloginInfo, Service } from './network';
 import {
 	CrudType,
 	DeleteEventsBatchOptions,
-	FilterableAtlasRequest, FilterableUserEventRequest,
+	FilterableAtlasRequest,
+	FilterableUserEventRequest,
 	FilterLocationRequest,
 	ForumLookup,
 	LocationRequest,
@@ -43,20 +48,23 @@ import {
 	PlayableLocationML,
 	PlayerStats,
 	PublicUser,
-	PufEvent, PufPubEventTeamMember,
+	PufEvent,
+	PufPubEventTeamMember,
 	SocialMessage,
 	Sport,
 	SportInterest,
 	SportPosition,
 	SportRules,
 	SuggestedEvent,
-	TeamMetaAndPubEventTeamMembers, TeamMember,
+	TeamAndPubEventTeamMembers,
+	TeamMember,
+	TeamMetaAndPubEventTeamMembers,
 	User,
 	UserBadge,
 	UserEvent,
 	UserSportParticipationStats,
 	Vote,
-	VoteSessionVotesEventMembers, TeamAndPubEventTeamMembers,
+	VoteSessionVotesEventMembers,
 } from '../definitions/schema';
 import { Notification } from './notifications';
 import { Query, QueryInfo } from './querying';
@@ -524,6 +532,29 @@ export class NetworkMethods {
 			new HttpCall().set_postfix_uri(`api/users/afterLogin/${relogin.user.id}`)
 				.set_service(Service.Api),
 			JSON.stringify(metaDevice), 'POST',
+		);
+	}
+
+	/**
+	 * CrudType can be ONLY 'update' or 'delete'.
+	 * @param relogin
+	 * @param network
+	 * @param token
+	 * @param uuid
+	 * @param payload
+	 * @param meth
+	 */
+	public static promisifyUDSocialMessage(relogin: ReloginInfo, network: INetwork, token: string,
+																				 uuid: string, payload?: SocialMessage, meth: CrudType) : Promise<ServerResponse<SocialMessage>> {
+		if (meth === CrudType.Read || meth === CrudType.Create) {
+			return Promise.reject("CrudType invalid. Must be one of create or" +
+				" delete.");
+		}
+		return network.start(relogin,
+			token, new HttpCall().set_no_messages(false).set_service(Service.Api).set_postfix_uri('api/social_messages/one/' + uuid),
+			JSON.stringify(payload),
+			CrudType.Update === meth ? 'PUT' : 'DELETE',
+			true,
 		);
 	}
 
